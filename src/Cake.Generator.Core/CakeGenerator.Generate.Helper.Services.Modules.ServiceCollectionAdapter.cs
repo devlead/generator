@@ -14,7 +14,7 @@ public partial class CakeGenerator
                         public Type? ServiceType { get; set; }
                         public ServiceLifetime Lifetime { get; set; }
 
-                        public ServiceRegistration(Type implementationType)
+                        public ServiceRegistration([System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
                         {
                             ImplementationType = implementationType;
                         }
