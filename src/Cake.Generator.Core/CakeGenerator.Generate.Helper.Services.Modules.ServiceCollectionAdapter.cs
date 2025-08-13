@@ -14,7 +14,7 @@ public partial class CakeGenerator
                         public Type? ServiceType { get; set; }
                         public ServiceLifetime Lifetime { get; set; }
 
-                        public ServiceRegistration(Type implementationType)
+                        public ServiceRegistration([System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
                         {
                             ImplementationType = implementationType;
                         }
@@ -69,11 +69,13 @@ public partial class CakeGenerator
 
                         public ICakeRegistrationBuilder RegisterType(Type type)
                         {
+            #pragma warning disable IL2067 // 'type' argument does not satisfy 'DynamicallyAccessedMemberTypes.PublicConstructors' in call to 'ServiceRegistration.ServiceRegistration(Type)'
                             var registration = new ServiceRegistration(type)
                             {
                                 Lifetime = ServiceLifetime.Transient,
                                 ServiceType = type,
                             };
+            #pragma warning restore IL2067
 
                             _registrations.Add(registration);
                             return registration;
