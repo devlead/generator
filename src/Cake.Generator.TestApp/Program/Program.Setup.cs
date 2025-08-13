@@ -48,7 +48,7 @@ public static partial class Program
         var msBuildSettings = new DotNetMSBuildSettings()
                 .SetConfiguration("IntegrationTest")
                 .SetVersion(version)
-                .WithProperty("WarningAsError", "true")
+                .WithProperty("TreatWarningsAsErrors", "true")
                 .WithProperty("NoWarn", "NU5104;NU5128;NETSDK1057")
                 .WithProperty("SdkVersion", sdkVersion);
 
