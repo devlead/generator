@@ -56,12 +56,14 @@ public partial class CakeGenerator
                         public ICakeRegistrationBuilder RegisterInstance<TImplementation>(TImplementation instance)
                             where TImplementation : class
                         {
+            #pragma warning disable IL2087 // 'TImplementation' argument does not satisfy 'DynamicallyAccessedMemberTypes.PublicConstructors' in call to 'ServiceRegistration.ServiceRegistration(Type)'
                             var registration = new ServiceRegistration(typeof(TImplementation))
                             {
                                 Instance = instance,
                                 Lifetime = ServiceLifetime.Singleton,
                                 ServiceType = typeof(TImplementation),
                             };
+            #pragma warning restore IL2087
 
                             _registrations.Add(registration);
                             return registration;

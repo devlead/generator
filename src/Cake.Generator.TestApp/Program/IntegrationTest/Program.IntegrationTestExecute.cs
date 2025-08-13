@@ -14,7 +14,7 @@ public static partial class Program
                 data with {
                     WorkingDirectory = file.GetDirectory()
                 },
-                $"{mode}{file} -- --integration-test-version={data.Version}");
+                $"{mode}{file} -p:TreatWarningsAsErrors=true -- --integration-test-version={data.Version}");
         }
     }
 }

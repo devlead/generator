@@ -170,9 +170,11 @@ public record IntegrationTestData(
                     Assert.Equal(data.ExpectedVersion, data.Version);
                     Assert.Equal(data.ExpectedVersion, CakeGeneratorNuGetVersion);
 
-                    // Verify that the excluded class is not available using reflection
-                    var assembly = typeof(BuildConfiguration).Assembly;
-                    var typeExists = assembly.GetTypes().Any(t => t.Name == "ExcludedClass");
+                                         // Verify that the excluded class is not available using reflection
+                     var assembly = typeof(BuildConfiguration).Assembly;
+        #pragma warning disable IL2026 // Using member 'System.Reflection.Assembly.GetTypes()' which has 'RequiresUnreferencedCodeAttribute' can break functionality when trimming application code
+                     var typeExists = assembly.GetTypes().Any(t => t.Name == "ExcludedClass");
+        #pragma warning restore IL2026
 
                     Assert.False(typeExists, "The type 'ExcludedClass' should not exist in the assembly.");
                 });
