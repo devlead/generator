@@ -36,6 +36,12 @@ public partial class CakeGenerator : IIncrementalGenerator
                     return (compilation, null, null);
                 }
 
+                // Early exit if no references to scan
+                if (!compilation.References.Any())
+                {
+                    return (compilation, null, null);
+                }
+
                 // Scan all referenced assemblies for Cake aliases and modules
                 var allMethods = new List<MethodInfo>();
                 var allModules = new List<ModuleInfo>();
@@ -43,7 +49,7 @@ public partial class CakeGenerator : IIncrementalGenerator
                 {
                     if (compilation.GetAssemblyOrModuleSymbol(assembly) is IAssemblySymbol assemblySymbol)
                     {
-                        var foundMethods = ScanTypeMembers(assemblySymbol.GlobalNamespace, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
+                        var foundMethods = ScanTypeMembers(assemblySymbol.GlobalNamespace, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
                         allMethods.AddRange(foundMethods);
 
                         // Scan for modules if we have the required symbols
@@ -75,28 +81,23 @@ public partial class CakeGenerator : IIncrementalGenerator
             }
 
             // Separate methods and properties
-            var (
-                methodList,
-                methodAliases,
-                propertyAliases) = methods.Value.Aggregate(
-                (
-                    AllMethods: new List<MethodInfo>(),
-                    MethodAliases: new List<MethodInfo>(),
-                    PropertyAliases: new List<MethodInfo>()),
-                (acc, method) =>
-                {
-                    acc.AllMethods.Add(method);
+            var methodList = new List<MethodInfo>();
+            var methodAliases = new List<MethodInfo>();
+            var propertyAliases = new List<MethodInfo>();
 
-                    if (method.IsPropertyAlias)
-                    {
-                        acc.PropertyAliases.Add(method);
-                    }
-                    else
-                    {
-                        acc.MethodAliases.Add(method);
-                    }
-                    return acc;
-                });
+            foreach (var method in methods.Value)
+            {
+                methodList.Add(method);
+
+                if (method.IsPropertyAlias)
+                {
+                    propertyAliases.Add(method);
+                }
+                else
+                {
+                    methodAliases.Add(method);
+                }
+            }
 
             // Generate global usings
             var globalUsings = GenerateGlobalUsings(methodList);

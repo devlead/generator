@@ -6,7 +6,7 @@ namespace Cake.Generator;
 
 public partial class CakeGenerator
 {
-    private static void GenerateNestedClasses(StringBuilder sb, Dictionary<string, List<MethodInfo>> assemblyGroups, int indentLevel, bool isProperty)
+    private static void GenerateNestedClasses(StringBuilder sb, IDictionary<string, List<MethodInfo>> assemblyGroups, int indentLevel, bool isProperty)
     {
         var indent = new string(' ', indentLevel * 4);
 

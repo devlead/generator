@@ -4,20 +4,18 @@ public partial class CakeGenerator
 {
     private static List<MethodInfo> ScanTypeMembers(
         INamespaceSymbol namespaceSymbol,
-        INamedTypeSymbol extensionAttributeSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
         INamedTypeSymbol? cakeNamespaceImportAttributeSymbol,
         INamedTypeSymbol iCakeContextSymbol)
     {
         var validMethods = new List<MethodInfo>();
-        ScanNamespaceMembers(namespaceSymbol, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
+        ScanNamespaceMembers(namespaceSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
         return validMethods;
     }
 
     private static void ScanNamespaceMembers(
         INamespaceSymbol namespaceSymbol,
-        INamedTypeSymbol extensionAttributeSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
         INamedTypeSymbol? cakeNamespaceImportAttributeSymbol,
@@ -28,12 +26,12 @@ public partial class CakeGenerator
         {
             if (member is INamedTypeSymbol typeSymbol)
             {
-                ScanTypeMembers(typeSymbol, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol,
+                ScanTypeMembers(typeSymbol, cakeMethodAliasAttributeSymbol,
                               cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
             }
             else if (member is INamespaceSymbol nestedNamespace)
             {
-                ScanNamespaceMembers(nestedNamespace, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol,
+                ScanNamespaceMembers(nestedNamespace, cakeMethodAliasAttributeSymbol,
                                    cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
             }
         }
@@ -41,7 +39,6 @@ public partial class CakeGenerator
 
     private static void ScanTypeMembers(
         INamedTypeSymbol typeSymbol,
-        INamedTypeSymbol extensionAttributeSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
         INamedTypeSymbol? cakeNamespaceImportAttributeSymbol,
@@ -56,7 +53,7 @@ public partial class CakeGenerator
                 &&
                 methodSymbol.MethodKind == MethodKind.Ordinary)
             {
-                var methodInfo = GetValidCakeMethod(methodSymbol, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
+                var methodInfo = GetValidCakeMethod(methodSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
                 if (methodInfo != null)
                 {
                     validMethods.Add(methodInfo);
@@ -67,12 +64,11 @@ public partial class CakeGenerator
         // Scan nested types
         foreach (var nestedType in typeSymbol.GetTypeMembers())
         {
-            ScanTypeMembers(nestedType, extensionAttributeSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
+            ScanTypeMembers(nestedType, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
         }
     }
 
     private static MethodInfo? GetValidCakeMethod(IMethodSymbol methodSymbol,
-        INamedTypeSymbol extensionAttributeSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
         INamedTypeSymbol? cakeNamespaceImportAttributeSymbol,
@@ -80,19 +76,26 @@ public partial class CakeGenerator
     {
         var attributes = methodSymbol.GetAttributes();
 
-        // Check if extension method
-        var hasExtensionAttribute = attributes.Any(attr =>
-            extensionAttributeSymbol != null &&
-             SymbolEqualityComparer.Default.Equals(attr.AttributeClass, extensionAttributeSymbol));
+        // Check if method has CakeMethodAlias or CakePropertyAlias attribute - cache results
+        AttributeData? cakeMethodAttribute = null;
+        AttributeData? cakePropertyAttribute = null;
 
-        // Check if method has CakeMethodAlias or CakePropertyAlias attribute
-        var cakeMethodAttribute = attributes.FirstOrDefault(attr =>
-            cakeMethodAliasAttributeSymbol != null &&
-            SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeMethodAliasAttributeSymbol));
-
-        var cakePropertyAttribute = attributes.FirstOrDefault(attr =>
-            cakePropertyAliasAttributeSymbol != null &&
-            SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakePropertyAliasAttributeSymbol));
+        if (cakeMethodAliasAttributeSymbol != null || cakePropertyAliasAttributeSymbol != null)
+        {
+            foreach (var attr in attributes)
+            {
+                if (cakeMethodAliasAttributeSymbol != null &&
+                    SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeMethodAliasAttributeSymbol))
+                {
+                    cakeMethodAttribute = attr;
+                }
+                else if (cakePropertyAliasAttributeSymbol != null &&
+                         SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakePropertyAliasAttributeSymbol))
+                {
+                    cakePropertyAttribute = attr;
+                }
+            }
+        }
 
         if (cakeMethodAttribute == null && cakePropertyAttribute == null)
         {
@@ -129,16 +132,16 @@ public partial class CakeGenerator
         var namespaceImports = new List<string>();
         if (cakeNamespaceImportAttributeSymbol != null)
         {
-            var namespaceImportAttributes = attributes.Where(attr =>
-                SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeNamespaceImportAttributeSymbol));
-
-            foreach (var attr in namespaceImportAttributes)
+            foreach (var attr in attributes)
             {
-                if (attr.ConstructorArguments.Length > 0 &&
-                    attr.ConstructorArguments[0].Value is string namespaceValue &&
-                    !string.IsNullOrWhiteSpace(namespaceValue))
+                if (SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeNamespaceImportAttributeSymbol))
                 {
-                    namespaceImports.Add(namespaceValue);
+                    if (attr.ConstructorArguments.Length > 0 &&
+                        attr.ConstructorArguments[0].Value is string namespaceValue &&
+                        !string.IsNullOrWhiteSpace(namespaceValue))
+                    {
+                        namespaceImports.Add(namespaceValue);
+                    }
                 }
             }
         }
