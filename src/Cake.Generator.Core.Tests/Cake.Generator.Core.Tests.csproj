@@ -17,13 +17,12 @@
     <PackageReference Include="Cake.Common" GeneratePathProperty="true" />
     <PackageReference Include="Cake.BuildSystems.Module" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+    <PackageReference Include="TUnit" />
     <PackageReference Include="Verify.DiffPlex" />
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
-    <PackageReference Include="Verify.XunitV3" />
     <PackageReference Include="Verify.SourceGenerators" />
+    <PackageReference Include="Verify.TUnit" />
 
     <None Include="$(PkgCake_Core)\lib\net8.0\Cake.Core.xml" Visible="false">
       <Link>%(Filename)%(Extension)</Link>
@@ -58,9 +57,9 @@
     <Using Include="System.Linq" />
     <Using Include="System.Text" />
     <Using Include="System.Threading.Tasks" />
-    <Using Include="Xunit" />
+    <Using Include="TUnit" />
     <Using Include="VerifyTests" />
-    <Using Include="VerifyXunit" />
+    <Using Include="VerifyTUnit" />
     <Using Include="Cake.Generator" />
     <Using Include="System.ComponentModel" />
   </ItemGroup>
