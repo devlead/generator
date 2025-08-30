@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
+
 namespace Cake.Generator;
 
 public partial class CakeGenerator
@@ -40,4 +42,55 @@ public partial class CakeGenerator
     /// The full name of the Cake.Core.Composition.ICakeModule type.
     /// </summary>
     private const string ICakeModuleFullName = "Cake.Core.Composition.ICakeModule";
+
+    /// <summary>
+    /// Simple StringBuilder cache for reducing allocations in code generation.
+    /// </summary>
+    private static class StringBuilderCache
+    {
+        [ThreadStatic]
+        private static StringBuilder? _cachedInstance;
+
+        public static StringBuilderScope Acquire()
+        {
+            var sb = _cachedInstance;
+            if (sb == null)
+            {
+                sb = new StringBuilder();
+            }
+            else
+            {
+                _cachedInstance = null;
+                sb.Clear();
+            }
+            return new StringBuilderScope(sb);
+        }
+
+        private static void Release(StringBuilder sb)
+        {
+            if (sb.Capacity <= 1024)
+            {
+                _cachedInstance = sb;
+            }
+        }
+
+        public readonly struct StringBuilderScope : IDisposable
+        {
+            private readonly StringBuilder _stringBuilder;
+
+            public StringBuilderScope(StringBuilder stringBuilder)
+            {
+                _stringBuilder = stringBuilder;
+            }
+
+            public StringBuilder StringBuilder => _stringBuilder;
+
+            public void Dispose()
+            {
+                StringBuilderCache.Release(_stringBuilder);
+            }
+
+            public static implicit operator StringBuilder(StringBuilderScope scope) => scope.StringBuilder;
+        }
+    }
 }
