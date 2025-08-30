@@ -24,5 +24,10 @@ public static partial class Program
         System.IO.File.WriteAllText(
             data.IntegrationTest.CakeSdkFilesExcludedCs.FullPath,
             data.IntegrationTest.CakeSdkFilesExcludedCsCode);
+
+        // Write the Main.cs file with Main_ method
+        System.IO.File.WriteAllText(
+            data.IntegrationTest.CakeSdkFilesMainCs.FullPath,
+            data.IntegrationTest.CakeSdkFilesMainCsCode);
     }
 }
