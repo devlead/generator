@@ -169,5 +169,6 @@ global using global::System.Text;
 global using global::System.Text.Json;
 global using global::System.Threading.Tasks;
 
+global using static global::Program;
 // Global static usings for generated Cake alias classes
 global using static global::Program.Cake_Common;

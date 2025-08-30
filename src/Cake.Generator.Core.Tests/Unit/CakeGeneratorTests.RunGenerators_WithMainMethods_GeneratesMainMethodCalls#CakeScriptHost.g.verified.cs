@@ -35,7 +35,8 @@ public static partial class Program
         private static void PostScriptHost()
         {
             // Call any static private void no argument methods in current executing assembly in static Program class prefixed with Main_ here
-            
+            Main_Initialize();
+            Main_Setup();
         }
     }
 

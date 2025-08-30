@@ -43,4 +43,44 @@ public sealed class CakeGeneratorTests
         // Then
         await Verify(result.GetRunResult());
     }
+
+    [Fact]
+    public async Task RunGenerators_WithMainMethods_GeneratesMainMethodCalls()
+    {
+        // Given
+        var source = """
+        using System;
+        using Cake.Core.Scripting;
+
+        public static partial class Program
+        {
+            private static void Main_Initialize()
+            {
+                // Initialization logic
+            }
+
+            private static void Main_Setup()
+            {
+                // Setup logic
+            }
+
+            private static void NotMain()
+            {
+                // Should not be picked up
+            }
+        }
+        """;
+
+        var compilation = CakeGeneratorTestsBase.CreateCakeCompilation(source);
+
+        // When
+        var driver = CSharpGeneratorDriver.Create(new CakeGenerator());
+        var result = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
+
+        // Then
+        var runResult = result.GetRunResult();
+        var generatedCode = string.Join("\n", runResult.Results.SelectMany(r => r.GeneratedSources).Select(s => s.SourceText.ToString()));
+
+        await Verify(runResult);
+    }
 }

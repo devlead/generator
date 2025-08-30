@@ -43,6 +43,12 @@ public static partial class Program
 
                     environment.WorkingDirectory = directory;
                 }
+
+                // Execute any registered script host actions
+                var scriptHost = provider.GetRequiredService<IScriptHost>();
+                Array.ForEach(
+                    provider.GetService<IEnumerable<Action<IScriptHost>>>()?.ToArray() ?? [],
+                    action => action(scriptHost));
             }
         }
     }
