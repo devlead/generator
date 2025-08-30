@@ -1,4 +1,5 @@
 ﻿//HintName: CakeScriptHost.g.cs
+
 /// <summary>
 /// Static proxy methods and properties for IScriptHost.
 /// </summary>"
@@ -7,7 +8,36 @@ public static partial class Program
     /// <summary>
     /// Gets the Cake script host instance from the service provider.
     /// </summary>
-    public static IScriptHost ScriptHost { get; } = ServiceProvider.GetRequiredService<IScriptHost>();
+    public static IScriptHost ScriptHost => Helper.ScriptHost;
+
+    private static partial class Helper
+    {
+        private static object _scriptHostLock = new object();
+        private static IScriptHost? _scriptHost;
+
+        /// <summary>
+        /// Gets the configured script host instance.
+        /// </summary>
+        public static IScriptHost ScriptHost => _scriptHost ??= GetScriptHost();
+
+        private static IScriptHost GetScriptHost()
+        {
+            lock(_scriptHostLock)
+            {
+                _scriptHost = ServiceProvider.GetRequiredService<IScriptHost>();
+            }
+            
+            PostScriptHost();
+            
+            return _scriptHost;
+        }
+
+        private static void PostScriptHost()
+        {
+            // Call any static private void no argument methods in current executing assembly in static Program class prefixed with Main_ here
+            
+        }
+    }
 
     private class GeneratorScriptHost(ICakeEngine engine, ICakeContext context, IExecutionStrategy strategy, ICakeReportPrinter reporter)
         : ScriptHost(engine, context)

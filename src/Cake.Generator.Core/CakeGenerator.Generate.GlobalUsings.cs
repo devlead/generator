@@ -60,6 +60,8 @@ public partial class CakeGenerator
         sb.AppendLine(globalUsings);
         sb.AppendLine();
 
+        sb.AppendLine($"global using static global::Program;");
+
         // Add global static usings for generated flat classes
         sb.AppendLine("// Global static usings for generated Cake alias classes");
         foreach (var assemblyName in assemblyNames.OrderBy(x => x))

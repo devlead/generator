@@ -40,6 +40,7 @@ public record IntegrationTestData(
     public FilePath CakeSdkFilesModelsCs { get; } = BaseDirectory.Combine("cake.sdk.files").CombineWithFilePath("Models.cs");
     public FilePath CakeSdkFilesUtilitiesCs { get; } = BaseDirectory.Combine("cake.sdk.files").CombineWithFilePath("Utilities.cs");
     public FilePath CakeSdkFilesExcludedCs { get; } = BaseDirectory.Combine("cake.sdk.files").CombineWithFilePath("Excluded.cs");
+    public FilePath CakeSdkFilesMainCs { get; } = BaseDirectory.Combine("cake.sdk.files").CombineWithFilePath("Main.cs");
 
     public FilePath[] TestFiles =>
         [
@@ -212,6 +213,19 @@ public record IntegrationTestData(
         public class ExcludedClass
         {
             public string Message { get; set; } = "This should not be available";
+        }
+        """;
+
+    public string CakeSdkFilesMainCsCode =>
+        """
+        public static partial class Program
+        {
+            private static void Main_IntegrationTestMultiFile()
+            {
+                Task("Main_IntegrationTestMultiFile-Task")
+                    .IsDependeeOf("Test-MultiFile")
+                    .Does(() => Information("Hello from Main_IntegrationTestMultiFile-Task"));
+            }
         }
         """;
 }
