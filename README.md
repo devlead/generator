@@ -175,6 +175,51 @@ Task("MyTask")
 
 The `ServiceProvider` is available throughout your build script, making it easy to access your registered services wherever needed.
 
+### Multiple Main Entry Points and IoC Script Host Integration
+
+The generator now supports multiple main entry points and IoC container integration with the script host, enabling more modular and organized build scripts.
+
+#### Multiple Main Entry Points
+
+You can define multiple entry points using `Main_*` prefixed methods that are automatically discovered and executed:
+
+```csharp
+// Program.Main.cs
+public static partial class Program
+{
+    private static void Main_One()
+    {
+        Task(nameof(Main_One))
+            .IsDependeeOf("Clean")
+            .Does(() => Information("Hello from Main_One"));
+    }
+
+    private static void Main_Two()
+    {
+        Task(nameof(Main_Two))
+            .IsDependeeOf("Clean")
+            .Does(() => Information("Hello from Main_Two"));
+    }
+}
+```
+
+#### IoC Script Host Actions
+
+You can register actions that interact with the script host through the IoC container:
+
+```csharp
+// Program.RegisterServices.cs
+static partial void RegisterServices(IServiceCollection services)
+{
+    services.AddSingleton(new Action<IScriptHost>(
+        host => host.Task("IOC-Task")
+                    .IsDependeeOf("Clean")
+                    .Does(() => Information("Hello from IOC-Task"))));
+}
+```
+
+This enables dynamic task creation and more flexible build script organization across multiple files.
+
 ### Available constants
 
 The following constants are automatically generated and available in your Cake script:
@@ -244,6 +289,8 @@ Task("Use-Registered-Tools")
 - [x] Supports Cake modules with automatic registration
 - [x] Generates code in a partial static `Program` class with no namespace
 - [x] Provides helper methods for installing .NET / NuGet tools
+- [x] Supports multiple main entry points with automatic `Main_*` method discovery
+- [x] Enables IoC container integration with script host for dynamic task creation
 
 ## Building
 
