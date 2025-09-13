@@ -2,7 +2,7 @@ namespace Cake.Generator;
 
 public partial class CakeGenerator
 {
-    private static List<ModuleInfo> ScanForModules(
+    internal static List<ModuleInfo> ScanForModules(
         IAssemblySymbol assemblySymbol,
         INamedTypeSymbol cakeModuleAttributeSymbol,
         INamedTypeSymbol iCakeModuleSymbol,

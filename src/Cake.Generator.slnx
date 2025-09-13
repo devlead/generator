@@ -4,6 +4,7 @@
     <BuildType Name="IntegrationTest" />
     <BuildType Name="Release" />
   </Configurations>
+  <Project Path="Cake.Generator.Core.BenchmarkSuite/Cake.Generator.Core.BenchmarkSuite.csproj" />
   <Project Path="Cake.Generator.Core.Tests/Cake.Generator.Core.Tests.csproj" />
   <Project Path="Cake.Generator.Core/Cake.Generator.Core.csproj" />
   <Project Path="Cake.Generator.TestApp/Cake.Generator.TestApp.csproj" />
