@@ -2,6 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Immutable;
+using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
+
 namespace Cake.Generator;
 
 /// <summary>
@@ -14,12 +19,25 @@ public partial class CakeGenerator : IIncrementalGenerator
     /// Initializes the generator.
     /// </summary>
     /// <param name="context">The incremental generator initialization context.</param>
+    /// <remarks>
+    /// This uses the incremental generator pattern for performance, but still scans referenced assemblies
+    /// for Cake method/property aliases and modules, as required for full Cake addin support.
+    ///
+    /// OCE: Object Creation Expressions for Roslyn symbols and code generation are used throughout.
+    ///
+    /// Key steps:
+    /// 1. Gather all relevant Roslyn symbols from the compilation (attributes, interfaces, etc).
+    /// 2. For each referenced assembly, scan for Cake method/property aliases and modules.
+    /// 3. Aggregate and generate all proxy code, global usings, script host, and helper files.
+    /// 4. Output generated sources using context.RegisterSourceOutput.
+    /// </remarks>
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        // Create a provider that collects all compilation data we need
+        // Use the incremental generator pattern, but scan referenced assemblies as before
         var compilationProvider = context.CompilationProvider
-            .Select<Compilation, (Compilation Compilation, ImmutableArray<MethodInfo>? Methods, ImmutableArray<ModuleInfo>? Modules)>((compilation, cancellationToken) =>
+            .Select((compilation, cancellationToken) =>
             {
+                // OCE: Gather all required symbols for Cake alias/module discovery
                 var extensionAttributeSymbol = compilation.GetTypeByMetadataName(ExtensionAttributeFullName);
                 var cakeMethodAliasAttributeSymbol = compilation.GetTypeByMetadataName(CakeMethodAliasAttributeFullName);
                 var cakePropertyAliasAttributeSymbol = compilation.GetTypeByMetadataName(CakePropertyAliasAttributeFullName);
@@ -29,20 +47,21 @@ public partial class CakeGenerator : IIncrementalGenerator
                 var iCakeModuleSymbol = compilation.GetTypeByMetadataName(ICakeModuleFullName);
                 var obsoleteAttributeSymbol = compilation.GetTypeByMetadataName("System.ObsoleteAttribute");
 
+                // Defensive: If any required symbol is missing, skip generation
                 if (extensionAttributeSymbol == null ||
                     (cakeMethodAliasAttributeSymbol == null && cakePropertyAliasAttributeSymbol == null) ||
                     iCakeContextSymbol == null)
                 {
-                    return (compilation, null, null);
+                    return (compilation, null as ImmutableArray<MethodInfo>?, null as ImmutableArray<ModuleInfo>?);
                 }
 
-                // Early exit if no references to scan
+                // Defensive: If no references, skip generation
                 if (!compilation.References.Any())
                 {
-                    return (compilation, null, null);
+                    return (compilation, null as ImmutableArray<MethodInfo>?, null as ImmutableArray<ModuleInfo>?);
                 }
 
-                // Scan all referenced assemblies for Cake aliases and modules
+                // OCE: Scan all referenced assemblies for Cake aliases and modules
                 var allMethods = new List<MethodInfo>();
                 var allModules = new List<ModuleInfo>();
                 foreach (var assembly in compilation.References)
@@ -52,7 +71,6 @@ public partial class CakeGenerator : IIncrementalGenerator
                         var foundMethods = ScanTypeMembers(assemblySymbol.GlobalNamespace, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
                         allMethods.AddRange(foundMethods);
 
-                        // Scan for modules if we have the required symbols
                         if (cakeModuleAttributeSymbol != null && iCakeModuleSymbol != null)
                         {
                             var foundModules = ScanForModules(assemblySymbol, cakeModuleAttributeSymbol, iCakeModuleSymbol, obsoleteAttributeSymbol);
@@ -62,11 +80,11 @@ public partial class CakeGenerator : IIncrementalGenerator
                 }
 
                 return (compilation,
-                       allMethods.Count > 0 ? allMethods.ToImmutableArray() : null,
-                       allModules.Count > 0 ? allModules.ToImmutableArray() : null);
+                    allMethods.Count > 0 ? allMethods.ToImmutableArray() : null,
+                    allModules.Count > 0 ? allModules.ToImmutableArray() : null);
             });
 
-        // Generate source files based on the collected methods
+        // OCE: Output all generated sources for Cake proxying and helpers
         context.RegisterSourceOutput(compilationProvider, (sourceProductionContext, data) =>
         {
             var (compilation, methods, modules) = data;
@@ -80,40 +98,43 @@ public partial class CakeGenerator : IIncrementalGenerator
                 return;
             }
 
-            // Separate methods and properties
-            var methodList = new List<MethodInfo>();
-            var methodAliases = new List<MethodInfo>();
-            var propertyAliases = new List<MethodInfo>();
+            // Single-pass classification to minimize allocations
+            List<MethodInfo>? methodAliases = null;
+            List<MethodInfo>? propertyAliases = null;
+            List<MethodInfo>? methodList = null;
 
             foreach (var method in methods.Value)
             {
+                methodList ??= new List<MethodInfo>();
                 methodList.Add(method);
-
                 if (method.IsPropertyAlias)
                 {
+                    propertyAliases ??= new List<MethodInfo>();
                     propertyAliases.Add(method);
                 }
                 else
                 {
+                    methodAliases ??= new List<MethodInfo>();
                     methodAliases.Add(method);
                 }
             }
 
             // Generate global usings
-            var globalUsings = GenerateGlobalUsings(methodList);
-            sourceProductionContext.AddSource("CakeAliasGlobalUsings.g.cs", SourceText.From(globalUsings, Encoding.UTF8));
+            if (methodList != null)
+            {
+                var globalUsings = GenerateGlobalUsings(methodList);
+                sourceProductionContext.AddSource("CakeAliasGlobalUsings.g.cs", SourceText.From(globalUsings, Encoding.UTF8));
+            }
 
             // Generate script host with compilation for dynamic generation
             var scriptHost = GenerateScriptHost(compilation);
             sourceProductionContext.AddSource("CakeScriptHost.g.cs", SourceText.From(scriptHost, Encoding.UTF8));
 
-            // Generate service provider;
+            // Generate service provider
             sourceProductionContext.AddSource("CakeServiceProvider.g.cs", SourceText.From(ServiceProvider, Encoding.UTF8));
 
-            // Generate service provider;
-            sourceProductionContext.AddSource("CakeHelper.AddCakeCore.g.cs", SourceText.From(Helper.AddCakeCore, Encoding.UTF8));
-
             // Generate helper services methods
+            sourceProductionContext.AddSource("CakeHelper.AddCakeCore.g.cs", SourceText.From(Helper.AddCakeCore, Encoding.UTF8));
             sourceProductionContext.AddSource("CakeHelper.AddCakeCli.g.cs", SourceText.From(Helper.AddCakeCli, Encoding.UTF8));
             sourceProductionContext.AddSource("CakeHelper.AddCakeGenerator.g.cs", SourceText.From(Helper.AddCakeGenerator, Encoding.UTF8));
             sourceProductionContext.AddSource("CakeHelper.AddCakeToolInstaller.g.cs", SourceText.From(Helper.AddCakeToolInstaller, Encoding.UTF8));
@@ -123,14 +144,14 @@ public partial class CakeGenerator : IIncrementalGenerator
             sourceProductionContext.AddSource("CakeCakeAppSettings.g.cs", SourceText.From(CakeAppSettings, Encoding.UTF8));
 
             // Generate method aliases if any exist
-            if (methodAliases.Count > 0)
+            if (methodAliases != null && methodAliases.Count > 0)
             {
                 var methodAliasesSource = GenerateMethodAliases(methodAliases);
                 sourceProductionContext.AddSource("CakeMethodAliases.g.cs", SourceText.From(methodAliasesSource, Encoding.UTF8));
             }
 
             // Generate property aliases if any exist
-            if (propertyAliases.Count > 0)
+            if (propertyAliases != null && propertyAliases.Count > 0)
             {
                 var propertyAliasesSource = GeneratePropertyAliases(propertyAliases);
                 sourceProductionContext.AddSource("CakePropertyAliases.g.cs", SourceText.From(propertyAliasesSource, Encoding.UTF8));

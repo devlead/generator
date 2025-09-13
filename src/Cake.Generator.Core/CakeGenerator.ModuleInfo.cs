@@ -6,7 +6,7 @@ namespace Cake.Generator;
 
 public partial class CakeGenerator
 {
-    private class ModuleInfo
+    internal class ModuleInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleInfo"/> class.

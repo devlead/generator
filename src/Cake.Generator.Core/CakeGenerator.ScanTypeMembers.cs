@@ -1,8 +1,14 @@
 namespace Cake.Generator;
 
+using System.Collections.Immutable;
+
 public partial class CakeGenerator
 {
-    private static List<MethodInfo> ScanTypeMembers(
+    /// <summary>
+    /// Scans a namespace and all its types for valid Cake method/property aliases.
+    /// OCE: Entry point for recursive symbol scanning in referenced assemblies.
+    /// </summary>
+    internal static ImmutableArray<MethodInfo> ScanTypeMembers(
         INamespaceSymbol namespaceSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
@@ -11,9 +17,13 @@ public partial class CakeGenerator
     {
         var validMethods = new List<MethodInfo>();
         ScanNamespaceMembers(namespaceSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
-        return validMethods;
+        return validMethods.Count == 0 ? ImmutableArray<MethodInfo>.Empty : validMethods.ToImmutableArray();
     }
 
+    /// <summary>
+    /// Recursively scans all members of a namespace for types and nested namespaces.
+    /// OCE: Drives recursive type/member scanning for Cake alias discovery.
+    /// </summary>
     private static void ScanNamespaceMembers(
         INamespaceSymbol namespaceSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
@@ -37,6 +47,10 @@ public partial class CakeGenerator
         }
     }
 
+    /// <summary>
+    /// Scans a type for static methods that are valid Cake method/property aliases.
+    /// OCE: Checks for Cake attributes and ICakeContext parameter.
+    /// </summary>
     private static void ScanTypeMembers(
         INamedTypeSymbol typeSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
@@ -48,10 +62,8 @@ public partial class CakeGenerator
         foreach (var member in typeSymbol.GetMembers())
         {
             if (member is IMethodSymbol methodSymbol
-                &&
-                methodSymbol.IsStatic
-                &&
-                methodSymbol.MethodKind == MethodKind.Ordinary)
+                && methodSymbol.IsStatic
+                && methodSymbol.MethodKind == MethodKind.Ordinary)
             {
                 var methodInfo = GetValidCakeMethod(methodSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol);
                 if (methodInfo != null)
@@ -61,39 +73,43 @@ public partial class CakeGenerator
             }
         }
 
-        // Scan nested types
         foreach (var nestedType in typeSymbol.GetTypeMembers())
         {
             ScanTypeMembers(nestedType, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
         }
     }
 
+    /// <summary>
+    /// Checks if a method is a valid Cake method/property alias and extracts metadata.
+    /// OCE: Attribute and parameter checks for Cake alias discovery.
+    /// </summary>
     private static MethodInfo? GetValidCakeMethod(IMethodSymbol methodSymbol,
         INamedTypeSymbol? cakeMethodAliasAttributeSymbol,
         INamedTypeSymbol? cakePropertyAliasAttributeSymbol,
         INamedTypeSymbol? cakeNamespaceImportAttributeSymbol,
         INamedTypeSymbol iCakeContextSymbol)
     {
+        // Only call GetAttributes() once and reuse the result
         var attributes = methodSymbol.GetAttributes();
+        if (attributes.Length == 0)
+        {
+            return null;
+        }
 
-        // Check if method has CakeMethodAlias or CakePropertyAlias attribute - cache results
         AttributeData? cakeMethodAttribute = null;
         AttributeData? cakePropertyAttribute = null;
-
-        if (cakeMethodAliasAttributeSymbol != null || cakePropertyAliasAttributeSymbol != null)
+        for (int i = 0; i < attributes.Length; i++)
         {
-            foreach (var attr in attributes)
+            var attr = attributes[i];
+            if (cakeMethodAliasAttributeSymbol != null &&
+                SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeMethodAliasAttributeSymbol))
             {
-                if (cakeMethodAliasAttributeSymbol != null &&
-                    SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeMethodAliasAttributeSymbol))
-                {
-                    cakeMethodAttribute = attr;
-                }
-                else if (cakePropertyAliasAttributeSymbol != null &&
-                         SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakePropertyAliasAttributeSymbol))
-                {
-                    cakePropertyAttribute = attr;
-                }
+                cakeMethodAttribute = attr;
+            }
+            else if (cakePropertyAliasAttributeSymbol != null &&
+                     SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakePropertyAliasAttributeSymbol))
+            {
+                cakePropertyAttribute = attr;
             }
         }
 
@@ -120,32 +136,41 @@ public partial class CakeGenerator
 
         if (isPropertyAlias && cakePropertyAttribute != null)
         {
-            // Check if Cache parameter is set to true
-            var cacheArg = cakePropertyAttribute.NamedArguments.FirstOrDefault(arg => arg.Key == "Cache");
-            if (cacheArg.Key == "Cache" && cacheArg.Value.Value is bool cacheValue)
+            foreach (var arg in cakePropertyAttribute.NamedArguments)
             {
-                isCached = cacheValue;
+                if (arg.Key == "Cache" && arg.Value.Value is bool cacheValue)
+                {
+                    isCached = cacheValue;
+                    break;
+                }
             }
         }
 
         // Extract namespace imports from CakeNamespaceImportAttribute
-        var namespaceImports = new List<string>();
+        string[] namespaceImports = Array.Empty<string>();
         if (cakeNamespaceImportAttributeSymbol != null)
         {
-            foreach (var attr in attributes)
+            List<string>? imports = null;
+            for (int i = 0; i < attributes.Length; i++)
             {
+                var attr = attributes[i];
                 if (SymbolEqualityComparer.Default.Equals(attr.AttributeClass, cakeNamespaceImportAttributeSymbol))
                 {
                     if (attr.ConstructorArguments.Length > 0 &&
                         attr.ConstructorArguments[0].Value is string namespaceValue &&
                         !string.IsNullOrWhiteSpace(namespaceValue))
                     {
-                        namespaceImports.Add(namespaceValue);
+                        imports ??= new List<string>();
+                        imports.Add(namespaceValue);
                     }
                 }
             }
+            if (imports != null)
+            {
+                namespaceImports = imports.ToArray();
+            }
         }
 
-        return new MethodInfo(methodSymbol, isPropertyAlias, isCached, namespaceImports.ToArray());
+        return new MethodInfo(methodSymbol, isPropertyAlias, isCached, namespaceImports);
     }
 }
