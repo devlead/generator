@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Cake.Generator;
 
 public partial class CakeGenerator

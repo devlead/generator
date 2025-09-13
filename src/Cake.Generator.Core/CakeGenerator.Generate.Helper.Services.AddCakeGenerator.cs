@@ -46,5 +46,5 @@ public partial class CakeGenerator
                 }
             }
             """;
-   }
+    }
 }

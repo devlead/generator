@@ -50,7 +50,8 @@ public static partial class Program
                                         args.Format,
                                         args
                                             .GetArguments()
-                                            .Select(value => value switch {
+                                            .Select(value => value switch
+                                            {
                                                 string s when s.Contains(' ')
                                                     => s.Quote(),
                                                 Cake.Core.IO.Path path

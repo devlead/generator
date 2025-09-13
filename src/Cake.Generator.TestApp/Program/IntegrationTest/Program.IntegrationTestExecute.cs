@@ -11,7 +11,8 @@ public static partial class Program
 
             var mode = file.GetExtension() == ".csproj" ? "run --project " : string.Empty;
             DotNet(
-                data with {
+                data with
+                {
                     WorkingDirectory = file.GetDirectory()
                 },
                 $"{mode}{file} -p:TreatWarningsAsErrors=true -- --integration-test-version={data.Version}");
