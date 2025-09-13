@@ -190,5 +190,5 @@ public partial class CakeGenerator
                 }
             }
             """;
-   }
+    }
 }

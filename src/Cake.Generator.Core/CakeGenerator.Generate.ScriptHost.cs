@@ -12,7 +12,7 @@ public partial class CakeGenerator
 
         if (scriptHostInterface == null)
         {
-          return string.Empty;
+            return string.Empty;
         }
 
         // Scan current compilation for Main_ prefixed methods in Program class
