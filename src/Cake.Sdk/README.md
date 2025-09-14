@@ -175,6 +175,31 @@ Task("MyTask")
     });
 ```
 
+### Multiple Main Entry Points
+
+You can define multiple entry points using `Main_*` prefixed methods that are automatically discovered and executed:
+
+```csharp
+// Program.Main.cs
+public static partial class Program
+{
+    private static void Main_One()
+    {
+        Task(nameof(Main_One))
+            .IsDependeeOf("Clean")
+            .Does(() => Information("Hello from Main_One"));
+    }
+
+    private static void Main_Two()
+    {
+        Task(nameof(Main_Two))
+            .IsDependeeOf("Clean")
+            .Does(() => Information("Hello from Main_Two"));
+    }
+}
+```
+
+
 ## What's Included
 
 The Cake.Sdk automatically configures the following properties:
@@ -182,7 +207,7 @@ The Cake.Sdk automatically configures the following properties:
 - `OutputType`: Exe
 - `Nullable`: enable
 - `ImplicitUsings`: enable
-- `Optimize`: true
+- `Optimize`: false
 - `DebugType`: portable
 - `DebugSymbols`: true
 - `LangVersion`: latest
