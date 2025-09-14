@@ -34,6 +34,7 @@
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
   
   <PropertyGroup>
+    <AssemblyName>Cake.Sdk</AssemblyName>
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -53,6 +54,9 @@
     <Compile Include="__IncludeAdditionalFiles__" Exclude="__ExcludeAdditionalFiles__" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="__MSBuildThisFileDirectory__/../Cake.SDK.TrimmerRootDescriptor.xml" />
+  </ItemGroup>
 </Project>]]></SdkPropsContent>
       <SdkTargetsContent><![CDATA[<Project>
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
@@ -62,7 +66,7 @@
           <!-- Replace placeholders with actual values and MSBuild properties -->
       <PropertyGroup>
         <DollarSign>$</DollarSign>
-        <SdkPropsContentWithVersion>$([System.String]::Copy('$(SdkPropsContent)').Replace('__VERSION__', '$(Version)').Replace('__IncludeAdditionalFiles__', '$(DollarSign)(IncludeAdditionalFiles)').Replace('__ExcludeAdditionalFiles__', '$(DollarSign)(ExcludeAdditionalFiles)'))</SdkPropsContentWithVersion>
+        <SdkPropsContentWithVersion>$([System.String]::Copy('$(SdkPropsContent)').Replace('__VERSION__', '$(Version)').Replace('__IncludeAdditionalFiles__', '$(DollarSign)(IncludeAdditionalFiles)').Replace('__ExcludeAdditionalFiles__', '$(DollarSign)(ExcludeAdditionalFiles)').Replace('__MSBuildThisFileDirectory__', '$(DollarSign)(MSBuildThisFileDirectory)'))</SdkPropsContentWithVersion>
       </PropertyGroup>
     
     <!-- Ensure directories exist -->
@@ -88,4 +92,8 @@
     <None Include="Generated/build/Cake.Sdk.targets" Pack="true" PackagePath="build/Cake.Sdk.targets" />
   </ItemGroup>
 
+  <!-- Include Cake.SDK.TrimmerRootDescriptor.xml -->
+  <ItemGroup>
+    <None Include="Cake.SDK.TrimmerRootDescriptor.xml" Pack="true" PackagePath="Cake.SDK.TrimmerRootDescriptor.xml" />
+  </ItemGroup>
 </Project> 
