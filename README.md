@@ -2,7 +2,7 @@
 
 | Package                                       | Latest Release                                                                                                |
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| Cake.Generator                                | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Generator) |
+| [Cake.Generator](README.md)                   | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Generator) |
 | [Cake.Sdk](src/Cake.Sdk/README.md)            | [![NuGet](https://img.shields.io/nuget/v/Cake.Sdk.svg)](https://www.nuget.org/packages/Cake.Sdk)             |
 | [Cake.Template](src/Cake.Template/README.md)  | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Template)  |
 
