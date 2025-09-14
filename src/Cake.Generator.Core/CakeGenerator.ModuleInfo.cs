@@ -6,21 +6,16 @@ namespace Cake.Generator;
 
 public partial class CakeGenerator
 {
-    internal class ModuleInfo
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ModuleInfo"/> class.
+    /// </summary>
+    /// <param name="symbol">The module type symbol.</param>
+    internal class ModuleInfo(INamedTypeSymbol symbol)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ModuleInfo"/> class.
-        /// </summary>
-        /// <param name="symbol">The module type symbol.</param>
-        public ModuleInfo(INamedTypeSymbol symbol)
-        {
-            Symbol = symbol;
-        }
-
         /// <summary>
         /// Gets the module type symbol.
         /// </summary>
-        public INamedTypeSymbol Symbol { get; }
+        public INamedTypeSymbol Symbol { get; } = symbol;
 
         /// <summary>
         /// Gets the full name of the module type.

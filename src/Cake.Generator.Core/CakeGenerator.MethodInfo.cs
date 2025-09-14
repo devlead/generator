@@ -6,41 +6,33 @@ namespace Cake.Generator;
 
 public partial class CakeGenerator
 {
-    internal class MethodInfo
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MethodInfo"/> class.
+    /// </summary>
+    /// <param name="symbol">The method symbol.</param>
+    /// <param name="isPropertyAlias">A value indicating whether the method is a property alias.</param>
+    /// <param name="isCached">A value indicating whether the property alias is cached.</param>
+    /// <param name="namespaceImports">The namespaces to import based on CakeNamespaceImportAttribute.</param>
+    internal class MethodInfo(IMethodSymbol symbol, bool isPropertyAlias = false, bool isCached = false, params ImmutableArray<string> namespaceImports)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MethodInfo"/> class.
-        /// </summary>
-        /// <param name="symbol">The method symbol.</param>
-        /// <param name="isPropertyAlias">A value indicating whether the method is a property alias.</param>
-        /// <param name="isCached">A value indicating whether the property alias is cached.</param>
-        /// <param name="namespaceImports">The namespaces to import based on CakeNamespaceImportAttribute.</param>
-        public MethodInfo(IMethodSymbol symbol, bool isPropertyAlias = false, bool isCached = false, params string[] namespaceImports)
-        {
-            this.Symbol = symbol;
-            this.IsPropertyAlias = isPropertyAlias;
-            this.IsCached = isCached;
-            this.NamespaceImports = namespaceImports;
-        }
-
         /// <summary>
         /// Gets the method symbol.
         /// </summary>
-        public IMethodSymbol Symbol { get; }
+        public IMethodSymbol Symbol { get; } = symbol;
 
         /// <summary>
         /// Gets a value indicating whether the method is a property alias.
         /// </summary>
-        public bool IsPropertyAlias { get; }
+        public bool IsPropertyAlias { get; } = isPropertyAlias;
 
         /// <summary>
         /// Gets a value indicating whether the property alias is cached.
         /// </summary>
-        public bool IsCached { get; }
+        public bool IsCached { get; } = isCached;
 
         /// <summary>
         /// Gets the namespaces to import based on CakeNamespaceImportAttribute.
         /// </summary>
-        public string[] NamespaceImports { get; }
+        public ImmutableArray<string> NamespaceImports { get; } = namespaceImports;
     }
 }

@@ -17,7 +17,7 @@ public partial class CakeGenerator
     {
         var validMethods = new List<MethodInfo>();
         ScanNamespaceMembers(namespaceSymbol, cakeMethodAliasAttributeSymbol, cakePropertyAliasAttributeSymbol, cakeNamespaceImportAttributeSymbol, iCakeContextSymbol, validMethods);
-        return validMethods.Count == 0 ? ImmutableArray<MethodInfo>.Empty : validMethods.ToImmutableArray();
+        return validMethods.Count == 0 ? [] : [.. validMethods];
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ public partial class CakeGenerator
         }
 
         // Extract namespace imports from CakeNamespaceImportAttribute
-        string[] namespaceImports = Array.Empty<string>();
+        ImmutableArray<string>? namespaceImports = null;
         if (cakeNamespaceImportAttributeSymbol != null)
         {
             List<string>? imports = null;
@@ -160,17 +160,16 @@ public partial class CakeGenerator
                         attr.ConstructorArguments[0].Value is string namespaceValue &&
                         !string.IsNullOrWhiteSpace(namespaceValue))
                     {
-                        imports ??= new List<string>();
-                        imports.Add(namespaceValue);
+                        (imports ??= []).Add(namespaceValue);
                     }
                 }
             }
             if (imports != null)
             {
-                namespaceImports = imports.ToArray();
+                namespaceImports = [..imports];
             }
         }
 
-        return new MethodInfo(methodSymbol, isPropertyAlias, isCached, namespaceImports);
+        return new MethodInfo(methodSymbol, isPropertyAlias, isCached, namespaceImports ?? []);
     }
 }

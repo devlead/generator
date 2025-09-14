@@ -72,21 +72,10 @@ public partial class CakeGenerator
             }
         }
 
-        public readonly struct StringBuilderScope : IDisposable
+        public readonly struct StringBuilderScope(StringBuilder stringBuilder) : IDisposable
         {
-            private readonly StringBuilder _stringBuilder;
-
-            public StringBuilderScope(StringBuilder stringBuilder)
-            {
-                _stringBuilder = stringBuilder;
-            }
-
-            public StringBuilder StringBuilder => _stringBuilder;
-
-            public void Dispose()
-            {
-                StringBuilderCache.Release(_stringBuilder);
-            }
+            public StringBuilder StringBuilder => stringBuilder;
+            public void Dispose() => Release(stringBuilder);
 
             public static implicit operator StringBuilder(StringBuilderScope scope) => scope.StringBuilder;
         }

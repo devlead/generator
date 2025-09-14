@@ -2,11 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Immutable;
-using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
-
 namespace Cake.Generator;
 
 /// <summary>
@@ -105,17 +100,14 @@ public partial class CakeGenerator : IIncrementalGenerator
 
             foreach (var method in methods.Value)
             {
-                methodList ??= new List<MethodInfo>();
-                methodList.Add(method);
+                (methodList ??= []).Add(method);
                 if (method.IsPropertyAlias)
                 {
-                    propertyAliases ??= new List<MethodInfo>();
-                    propertyAliases.Add(method);
+                    (propertyAliases ??= []).Add(method);
                 }
                 else
                 {
-                    methodAliases ??= new List<MethodInfo>();
-                    methodAliases.Add(method);
+                    (methodAliases ??= []).Add(method);
                 }
             }
 

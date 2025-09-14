@@ -19,7 +19,7 @@ public partial class CakeGenerator
 
             result.AddOrUpdate(
                 key,
-                _ => new List<MethodInfo> { method },
+                _ => [method],
                 (_, existingList) =>
                 {
                     existingList.Add(method);

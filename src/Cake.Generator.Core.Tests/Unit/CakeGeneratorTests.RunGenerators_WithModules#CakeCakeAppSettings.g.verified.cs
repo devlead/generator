@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Spectre.Console.Cli;
 
-internal sealed class CakeAppSettings :  Spectre.Console.Cli.CommandSettings
+internal sealed class CakeAppSettings : Spectre.Console.Cli.CommandSettings
 {
     [CommandOption("--target|-t|--Target <TARGET>")]
     [Description("Target task to invoke.")]

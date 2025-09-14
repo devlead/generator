@@ -8,7 +8,7 @@ public partial class CakeGenerator
 {
     private static List<string> ScanForMainMethods(Compilation compilation)
     {
-        var mainMethods = new List<string>();
+        List<string>? mainMethods = [];
 
         // Find the Program type in the current compilation
         var programType = compilation.GlobalNamespace.GetTypeMembers("Program").FirstOrDefault();
