@@ -115,4 +115,64 @@
     <WriteLinesToFile File="templates\cakeminimalfile\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
   </Target>
 
+  <Target Name="UpdateCakeFileTemplate" BeforeTargets="PrepareForBuild">
+    <!-- Generate the template.json content with replaced placeholders -->
+    <PropertyGroup>
+      <TemplateJsonContent><![CDATA[{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Cake Contributors",
+  "classifications": [
+    "Console",
+    "Cake",
+    "Build"
+  ],
+  "name": "Cake SDK File-based",
+  "description": "A Cake build script using file-based approach with Cake.Sdk",
+  "identity": "Cake.Sdk.File",
+  "groupIdentity": "Cake.Sdk.File",
+  "shortName": "cakefile",
+  "sourceName": "cake",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "preferNameDirectory": false,
+  "primaryOutputs": [
+    {
+      "path": "cake.cs"
+    }
+  ],
+  "symbols": {
+    "IncludeExampleProject": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Include example project structure with solution, main project and test project",
+      "defaultValue": "false"
+    },
+    "CakeSdkVersion": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Cake.Sdk version to use",
+      "defaultValue": "$(Version)",
+      "replaces": "CakeSdkVersion"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "!(IncludeExampleProject)",
+          "exclude": [
+            "src/**/*"
+          ]
+        }
+      ]
+    }
+  ]
+}]]></TemplateJsonContent>
+    </PropertyGroup>
+    <!-- Write the updated template.json -->
+    <WriteLinesToFile File="templates\cakefile\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
+  </Target>
+
 </Project> 
