@@ -487,3 +487,4 @@ $RECYCLE.BIN/
 [Tt]ools/
 
 src/Cake.Template/templates/cakeglobaljson/.template.config/template.json
+src/Cake.Template/templates/cakeminimalfile/.template.config/template.json
