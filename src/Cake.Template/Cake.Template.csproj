@@ -73,4 +73,154 @@
     <WriteLinesToFile File="templates\cakeglobaljson\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
   </Target>
 
+  <Target Name="UpdateCakeMinimalFileTemplate" BeforeTargets="PrepareForBuild">
+    <!-- Generate the template.json content with replaced placeholders -->
+    <PropertyGroup>
+      <TemplateJsonContent><![CDATA[{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Cake Contributors",
+  "classifications": [
+    "Console",
+    "Cake",
+    "Build"
+  ],
+  "name": "Trivial Cake SDK File-based",
+  "description": "A trivial Cake build script using file-based approach with Cake.Sdk",
+  "identity": "Cake.Sdk.MinimalFile",
+  "groupIdentity": "Cake.Sdk.MinimalFile",
+  "shortName": "cakeminimalfile",
+  "sourceName": "cake",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "preferNameDirectory": false,
+  "primaryOutputs": [
+    {
+      "path": "cake.cs"
+    }
+  ],
+  "symbols": {
+    "CakeSdkVersion": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Cake.Sdk version to use",
+      "defaultValue": "$(Version)",
+      "replaces": "CakeSdkVersion"
+    }
+  }
+}]]></TemplateJsonContent>
+    </PropertyGroup>
+    <!-- Write the updated template.json -->
+    <WriteLinesToFile File="templates\cakeminimalfile\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
+  </Target>
+
+  <Target Name="UpdateCakeFileTemplate" BeforeTargets="PrepareForBuild">
+    <!-- Generate the template.json content with replaced placeholders -->
+    <PropertyGroup>
+      <TemplateJsonContent><![CDATA[{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Cake Contributors",
+  "classifications": [
+    "Console",
+    "Cake",
+    "Build"
+  ],
+  "name": "Cake SDK File-based",
+  "description": "A Cake build script using file-based approach with Cake.Sdk",
+  "identity": "Cake.Sdk.File",
+  "groupIdentity": "Cake.Sdk.File",
+  "shortName": "cakefile",
+  "sourceName": "cake",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "preferNameDirectory": false,
+  "primaryOutputs": [
+    {
+      "path": "cake.cs"
+    }
+  ],
+  "symbols": {
+    "IncludeExampleProject": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Include example project structure with solution, main project and test project",
+      "defaultValue": "false"
+    },
+    "CakeSdkVersion": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Cake.Sdk version to use",
+      "defaultValue": "$(Version)",
+      "replaces": "CakeSdkVersion"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "!(IncludeExampleProject)",
+          "exclude": [
+            "src/**/*"
+          ]
+        }
+      ]
+    }
+  ]
+}]]></TemplateJsonContent>
+    </PropertyGroup>
+    <!-- Write the updated template.json -->
+    <WriteLinesToFile File="templates\cakefile\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
+  </Target>
+
+  <Target Name="UpdateCakeMultiFileTemplate" BeforeTargets="PrepareForBuild">
+    <!-- Generate the template.json content with replaced placeholders -->
+    <PropertyGroup>
+      <TemplateJsonContent><![CDATA[{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Cake Contributors",
+  "classifications": [
+    "Console",
+    "Cake",
+    "Build"
+  ],
+  "name": "Cake SDK Multi-file File-based",
+  "description": "A Cake build script using multi-file structure with Cake.Sdk",
+  "identity": "Cake.Sdk.File.Multifile",
+  "groupIdentity": "Cake.Sdk.File.Multifile",
+  "shortName": "cakemultifile",
+  "sourceName": "cake",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "preferNameDirectory": false,
+  "primaryOutputs": [
+    {
+      "path": "cake.cs"
+    },
+    {
+      "path": "build/Models.cs"
+    },
+    {
+      "path": "build/Utilities.cs"
+    }
+  ],
+  "symbols": {
+    "CakeSdkVersion": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Cake.Sdk version to use",
+      "defaultValue": "$(Version)",
+      "replaces": "CakeSdkVersion"
+    }
+  }
+}]]></TemplateJsonContent>
+    </PropertyGroup>
+    <!-- Write the updated template.json -->
+    <WriteLinesToFile File="templates\cakemultifile\.template.config\template.json" Lines="$(TemplateJsonContent)" Overwrite="true" />
+  </Target>
+
 </Project> 

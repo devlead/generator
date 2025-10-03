@@ -1,4 +1,4 @@
-#:sdk Cake.Sdk
+#:sdk Cake.Sdk@CakeSdkVersion
 
 var target = Argument("target", "Test");
 var configuration = Argument("configuration", "Release");

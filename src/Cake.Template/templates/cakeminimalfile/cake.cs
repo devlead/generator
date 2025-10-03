@@ -1,4 +1,4 @@
-﻿#:sdk Cake.Sdk
+﻿#:sdk Cake.Sdk@CakeSdkVersion
 
 Task("TrivialTask")
     .Does(() =>
