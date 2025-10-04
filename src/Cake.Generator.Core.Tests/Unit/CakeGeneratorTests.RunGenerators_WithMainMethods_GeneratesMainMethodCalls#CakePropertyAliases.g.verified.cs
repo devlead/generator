@@ -19,6 +19,7 @@ public static partial class Program
         private static global::Cake.Common.Build.GitLabCI.IGitLabCIProvider? _GitLabCI;
         private static global::Cake.Common.Build.GitHubActions.IGitHubActionsProvider? _GitHubActions;
         private static global::Cake.Common.Build.AzurePipelines.IAzurePipelinesProvider? _AzurePipelines;
+        private static global::Cake.Common.Build.WoodpeckerCI.IWoodpeckerCIProvider? _WoodpeckerCI;
 
         /// <member name="M:Cake.Common.Build.BuildSystemAliases.BuildSystem(Cake.Core.ICakeContext)">
         /// <summary>
@@ -229,6 +230,21 @@ public static partial class Program
         /// </member>
         public static global::Cake.Common.Build.AzurePipelines.IAzurePipelinesProvider AzurePipelines
             => _AzurePipelines ??= global::Cake.Common.Build.BuildSystemAliases.AzurePipelines(Context);
+
+        /// <member name="M:Cake.Common.Build.BuildSystemAliases.WoodpeckerCI(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Gets a <see cref="T:Cake.Common.Build.WoodpeckerCI.WoodpeckerCIProvider" /> instance that can be used to
+        /// obtain information from the WoodpeckerCI environment.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var isWoodpeckerCIBuild = WoodpeckerCI.IsRunningOnWoodpeckerCI;
+        /// </code>
+        /// </example>
+        /// <returns>A <see cref="N:Cake.Common.Build.WoodpeckerCI" /> instance.</returns>
+        /// </member>
+        public static global::Cake.Common.Build.WoodpeckerCI.IWoodpeckerCIProvider WoodpeckerCI
+            => _WoodpeckerCI ??= global::Cake.Common.Build.BuildSystemAliases.WoodpeckerCI(Context);
 
     }
 
