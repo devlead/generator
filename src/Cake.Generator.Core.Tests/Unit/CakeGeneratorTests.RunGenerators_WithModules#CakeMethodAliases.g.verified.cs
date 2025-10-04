@@ -167,7 +167,7 @@ public static partial class Program
         /// {
         /// Information("Verbose output enabled");
         /// }
-        /// foreach(var arg in args)
+        /// foreach (var arg in args)
         /// {
         /// Information(
         /// "Key: {0}\tValue: \"{1}\"",
@@ -247,7 +247,7 @@ public static partial class Program
         /// {
         /// Information("Path: {0}", path);
         /// }
-        /// foreach(var envVar in envVars)
+        /// foreach (var envVar in envVars)
         /// {
         /// Information(
         /// "Key: {0}\tValue: \"{1}\"",
@@ -514,7 +514,7 @@ public static partial class Program
         /// <returns>The newly started process.</returns>
         /// <example>
         /// <code>
-        /// using(var process = StartAndReturnProcess("ping", new ProcessSettings{ Arguments = "localhost" }))
+        /// using (var process = StartAndReturnProcess("ping", new ProcessSettings{ Arguments = "localhost" }))
         /// {
         /// process.WaitForExit();
         /// // This should output 0 as valid arguments supplied
@@ -535,7 +535,7 @@ public static partial class Program
         /// <returns>The newly started process.</returns>
         /// <example>
         /// <code>
-        /// using(var process = StartAndReturnProcess("ping"))
+        /// using (var process = StartAndReturnProcess("ping"))
         /// {
         /// process.WaitForExit();
         /// // This should output 0 as valid arguments supplied
@@ -557,10 +557,10 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var releaseNotes = ParseAllReleaseNotes("./ReleaseNotes.md");
-        /// foreach(var releaseNote in releaseNotes)
+        /// foreach (var releaseNote in releaseNotes)
         /// {
         /// Information("Version: {0}", releaseNote.Version);
-        /// foreach(var note in releaseNote.Notes)
+        /// foreach (var note in releaseNote.Notes)
         /// {
         /// Information("\t{0}", note);
         /// }
@@ -581,7 +581,7 @@ public static partial class Program
         /// <code>
         /// var releaseNote = ParseReleaseNotes("./ReleaseNotes.md");
         /// Information("Version: {0}", releaseNote.Version);
-        /// foreach(var note in releaseNote.Notes)
+        /// foreach (var note in releaseNote.Notes)
         /// {
         /// Information("\t{0}", note);
         /// }
@@ -1827,7 +1827,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var files = GetFiles("./**/Cake.*.dll");
-        /// foreach(var file in files)
+        /// foreach (var file in files)
         /// {
         /// Information("File: {0}", file);
         /// }
@@ -1849,7 +1849,7 @@ public static partial class Program
         /// fileSystemInfo =&gt; !fileSystemInfo.Path.FullPath.EndsWith(
         /// "node_modules", StringComparison.OrdinalIgnoreCase);
         /// var files = GetFiles("./**/Cake.*.dll", new GlobberSettings { Predicate = exclude_node_modules });
-        /// foreach(var file in files)
+        /// foreach (var file in files)
         /// {
         /// Information("File: {0}", file);
         /// }
@@ -1869,7 +1869,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var directories = GetDirectories("./src/**/obj/*");
-        /// foreach(var directory in directories)
+        /// foreach (var directory in directories)
         /// {
         /// Information("Directory: {0}", directory);
         /// }
@@ -1891,7 +1891,7 @@ public static partial class Program
         /// fileSystemInfo =&gt; !fileSystemInfo.Path.FullPath.EndsWith(
         /// "node_modules", StringComparison.OrdinalIgnoreCase);
         /// var directories = GetDirectories("./src/**/obj/*", new GlobberSettings { Predicate = exclude_node_modules });
-        /// foreach(var directory in directories)
+        /// foreach (var directory in directories)
         /// {
         /// Information("Directory: {0}", directory);
         /// }
@@ -1911,7 +1911,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var paths = GetPaths("./src/**/obj/*");
-        /// foreach(var path in paths)
+        /// foreach (var path in paths)
         /// {
         /// Information("Path: {0}", path);
         /// }
@@ -1933,7 +1933,7 @@ public static partial class Program
         /// fileSystemInfo =&gt; !fileSystemInfo.Path.FullPath.EndsWith(
         /// "node_modules", StringComparison.OrdinalIgnoreCase);
         /// var paths = GetPaths("./src/**/obj/*", new GlobberSettings { Predicate = exclude_node_modules });
-        /// foreach(var path in paths)
+        /// foreach (var path in paths)
         /// {
         /// Information("Path: {0}", path);
         /// }
@@ -2373,7 +2373,7 @@ public static partial class Program
         /// var solutionPath = "./src/Cake.sln";
         /// Information("Parsing {0}", solutionPath);
         /// var parsedSolution = ParseSolution(solutionPath);
-        /// foreach(var project in parsedSolution.Projects)
+        /// foreach (var project in parsedSolution.Projects)
         /// {
         /// Information(
         /// @"Solution project file:
@@ -2488,7 +2488,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var exampleCodes = ParseXmlDocExampleCode("./Cake.Common.xml");
-        /// foreach(var exampleCode in exampleCodes)
+        /// foreach (var exampleCode in exampleCodes)
         /// {
         /// Information(
         /// "{0}\r\n{1}",
@@ -2511,7 +2511,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var filesExampleCodes = ParseXmlDocFilesExampleCode("./Cake.*.xml");
-        /// foreach(var exampleCode in filesExampleCodes)
+        /// foreach (var exampleCode in filesExampleCodes)
         /// {
         /// Information(
         /// "{0}\r\n{1}",
@@ -3999,6 +3999,107 @@ public static partial class Program
         public static void DotCoverMerge(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> sourceFiles, global::Cake.Core.IO.FilePath outputFile, global::Cake.Common.Tools.DotCover.Merge.DotCoverMergeSettings settings)
             => global::Cake.Common.Tools.DotCover.DotCoverAliases.DotCoverMerge(Context, sourceFiles, outputFile, settings);
 
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Build all projects.
+        /// </summary>
+        /// <param name="project">The projects path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetBuild("./src/*");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetBuild(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Build.DotNetBuildSettings)">
+        /// <summary>
+        /// Build all projects.
+        /// </summary>
+        /// <param name="project">The projects path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetBuildSettings
+        /// {
+        /// Framework = "netcoreapp2.0",
+        /// Configuration = "Debug",
+        /// OutputDirectory = "./artifacts/"
+        /// };
+        /// DotNetBuild("./src/*", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetBuild(string project, global::Cake.Common.Tools.DotNet.Build.DotNetBuildSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Context, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Shuts down build servers that are started from dotnet.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// DotNetBuildServerShutdown();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetBuildServerShutdown()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.BuildServer.DotNetBuildServerShutdownSettings)">
+        /// <summary>
+        /// Shuts down build servers that are started from dotnet.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetBuildServerShutdownSettings
+        /// {
+        /// MSBuild = true
+        /// };
+        /// DotNetBuildServerShutdown(settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetBuildServerShutdown(global::Cake.Common.Tools.DotNet.BuildServer.DotNetBuildServerShutdownSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Cleans a project's output.
+        /// </summary>
+        /// <param name="project">The project's path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetClean("./src/project");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetClean(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Clean.DotNetCleanSettings)">
+        /// <summary>
+        /// Cleans a project's output.
+        /// </summary>
+        /// <param name="project">The projects path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetCleanSettings
+        /// {
+        /// Framework = "netcoreapp2.0",
+        /// Configuration = "Debug",
+        /// OutputDirectory = "./artifacts/"
+        /// };
+        /// DotNetClean("./src/project", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetClean(string project, global::Cake.Common.Tools.DotNet.Clean.DotNetCleanSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Context, project, settings);
+
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetExecute(Cake.Core.ICakeContext,Cake.Core.IO.FilePath)">
         /// <summary>
         /// Execute an assembly.
@@ -4048,318 +4149,262 @@ public static partial class Program
         public static void DotNetExecute(global::Cake.Core.IO.FilePath assemblyPath, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Execute.DotNetExecuteSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetExecute(Context, assemblyPath, arguments, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Cake.Core.ICakeContext,System.String)">
         /// <summary>
-        /// Restore all NuGet Packages.
+        /// Formats code to match editorconfig settings.
         /// </summary>
+        /// <param name="root">The project or solution path.</param>
         /// <example>
         /// <code>
-        /// DotNetRestore();
+        /// DotNetFormat("./src/project");
         /// </code>
         /// </example>
         /// </member>
-        public static void DotNetRestore()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context);
+        public static void DotNetFormat(string root)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Context, root);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,System.String)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
         /// <summary>
-        /// Restore all NuGet Packages in the specified path.
+        /// Formats code to match editorconfig settings.
         /// </summary>
-        /// <param name="root">Path to the project file to restore.</param>
+        /// <param name="root">The project or solution path.</param>
+        /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// DotNetRestore("./src/MyProject/MyProject.csproj");
+        /// var settings = new DotNetFormatSettings
+        /// {
+        /// NoRestore = true,
+        /// Include = "Program.cs Utility\Logging.cs",
+        /// Severity = DotNetFormatSeverity.Error
+        /// };
+        /// DotNetFormat("./src/project", settings);
         /// </code>
         /// </example>
         /// </member>
-        public static void DotNetRestore(string root)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, root);
+        public static void DotNetFormat(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Context, root, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Cake.Core.ICakeContext,System.String)">
         /// <summary>
-        /// Restore all NuGet Packages with the settings.
+        /// Format code to match editorconfig settings for whitespace.
+        /// </summary>
+        /// <param name="root">The project or solution path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetFormatWhitespace("./src/*");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatWhitespace(string root)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Context, root);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
+        /// <summary>
+        /// Format code to match editorconfig settings for whitespace.
+        /// </summary>
+        /// <param name="root">The project or solution path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetFormatSettings
+        /// {
+        /// NoRestore = true,
+        /// Include = "Program.cs Utility\Logging.cs"
+        /// };
+        /// DotNetFormatWhitespace("./src/*", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatWhitespace(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Context, root, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Format code to match editorconfig settings for code style.
+        /// </summary>
+        /// <param name="root">The project or solution path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetFormatStyle("./src/*");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatStyle(string root)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Context, root);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
+        /// <summary>
+        /// Format code to match editorconfig settings for code style.
+        /// </summary>
+        /// <param name="root">The project or solution path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetFormatSettings
+        /// {
+        /// NoRestore = true,
+        /// Include = "Program.cs Utility\Logging.cs"
+        /// };
+        /// DotNetFormatStyle("./src/*", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatStyle(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Context, root, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Format code to match editorconfig settings for analyzers.
+        /// </summary>
+        /// <param name="project">The project or solution path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetFormatAnalyzers("./src/*");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatAnalyzers(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
+        /// <summary>
+        /// Format code to match editorconfig settings for analyzers.
+        /// </summary>
+        /// <param name="root">The project or solution path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetFormatSettings
+        /// {
+        /// NoRestore = true,
+        /// Include = "Program.cs Utility\Logging.cs"
+        /// };
+        /// DotNetFormatAnalyzers("./src/*", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetFormatAnalyzers(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Context, root, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Builds the specified targets in a project file found in the current working directory.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// DotNetMSBuild();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetMSBuild()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Builds the specified targets in the project file.
+        /// </summary>
+        /// <param name="projectOrDirectory">Project file or directory to search for project file.</param>
+        /// <example>
+        /// <code>
+        /// DotNetMSBuild("foobar.proj");
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// If a directory is specified, MSBuild searches that directory for a project file.
+        /// </remarks>
+        /// </member>
+        public static void DotNetMSBuild(string projectOrDirectory)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, projectOrDirectory);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings)">
+        /// <summary>
+        /// Builds the specified targets in a project file found in the current working directory.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// var settings = new DotNetRestoreSettings
+        /// var settings = new DotNetMSBuildSettings
         /// {
-        /// Sources = new[] {"https://www.example.com/nugetfeed", "https://www.example.com/nugetfeed2"},
-        /// FallbackSources = new[] {"https://www.example.com/fallbacknugetfeed"},
-        /// PackagesDirectory = "./packages",
-        /// DotNetVerbosity.Information,
-        /// DisableParallel = true,
-        /// InferRuntimes = new[] {"runtime1", "runtime2"}
+        /// NoLogo = true,
+        /// MaxCpuCount = -1
         /// };
-        /// DotNetRestore(settings);
+        /// DotNetMSBuild(settings);
         /// </code>
         /// </example>
         /// </member>
-        public static void DotNetRestore(global::Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, settings);
+        public static void DotNetMSBuild(global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings,System.Action{System.Collections.Generic.IEnumerable{System.String}})">
         /// <summary>
-        /// Restore all NuGet Packages in the specified path with settings.
+        /// Builds the specified targets in a project file found in the current working directory.
         /// </summary>
-        /// <param name="root">Path to the project file to restore.</param>
+        /// <param name="settings">The settings.</param>
+        /// <param name="standardOutputAction">The action to invoke with the standard output.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetMSBuildSettings
+        /// {
+        /// NoLogo = true,
+        /// MaxCpuCount = -1
+        /// };
+        /// DotNetMSBuild(settings,
+        /// output =&gt; foreach (var line in output) outputBuilder.AppendLine(line));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetMSBuild(global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings, global::System.Action<global::System.Collections.Generic.IEnumerable<string>> standardOutputAction)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, settings, standardOutputAction);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings)">
+        /// <summary>
+        /// Builds the specified targets in the project file.
+        /// </summary>
+        /// <param name="projectOrDirectory">Project file or directory to search for project file.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// var settings = new DotNetRestoreSettings
+        /// var settings = new DotNetMSBuildSettings
         /// {
-        /// Sources = new[] {"https://www.example.com/nugetfeed", "https://www.example.com/nugetfeed2"},
-        /// FallbackSources = new[] {"https://www.example.com/fallbacknugetfeed"},
-        /// PackagesDirectory = "./packages",
-        /// DotNetVerbosity.Information,
-        /// DisableParallel = true,
-        /// InferRuntimes = new[] {"runtime1", "runtime2"}
+        /// NoLogo = true,
+        /// MaxCpuCount = -1
         /// };
-        /// DotNetRestore("./src/MyProject/MyProject.csproj", settings);
+        /// DotNetMSBuild("foobar.proj", settings);
         /// </code>
         /// </example>
+        /// <remarks>
+        /// If a project file is not specified, MSBuild searches the current working directory for a file that has a file
+        /// extension that ends in "proj" and uses that file. If a directory is specified, MSBuild searches that directory for a project file.
+        /// </remarks>
         /// </member>
-        public static void DotNetRestore(string root, global::Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, root, settings);
+        public static void DotNetMSBuild(string projectOrDirectory, global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, projectOrDirectory, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Cake.Core.ICakeContext,System.String)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings,System.Action{System.Collections.Generic.IEnumerable{System.String}})">
         /// <summary>
-        /// Build all projects.
+        /// Builds the specified targets in the project file.
         /// </summary>
-        /// <param name="project">The projects path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetBuild("./src/*");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetBuild(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Build.DotNetBuildSettings)">
-        /// <summary>
-        /// Build all projects.
-        /// </summary>
-        /// <param name="project">The projects path.</param>
+        /// <param name="projectOrDirectory">Project file or directory to search for project file.</param>
         /// <param name="settings">The settings.</param>
+        /// <param name="standardOutputAction">The action to invoke with the standard output.</param>
         /// <example>
         /// <code>
-        /// var settings = new DotNetBuildSettings
+        /// var settings = new DotNetMSBuildSettings
         /// {
-        /// Framework = "netcoreapp2.0",
-        /// Configuration = "Debug",
-        /// OutputDirectory = "./artifacts/"
+        /// NoLogo = true,
+        /// MaxCpuCount = -1
         /// };
-        /// DotNetBuild("./src/*", settings);
+        /// DotNetMSBuild("foobar.proj", settings,
+        /// output =&gt; foreach (var line in output) outputBuilder.AppendLine(line));
         /// </code>
         /// </example>
+        /// <remarks>
+        /// If a project file is not specified, MSBuild searches the current working directory for a file that has a file
+        /// extension that ends in "proj" and uses that file. If a directory is specified, MSBuild searches that directory for a project file.
+        /// </remarks>
         /// </member>
-        public static void DotNetBuild(string project, global::Cake.Common.Tools.DotNet.Build.DotNetBuildSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuild(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Publish all projects.
-        /// </summary>
-        /// <param name="project">The projects path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetPublish("./src/*");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetPublish(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Publish.DotNetPublishSettings)">
-        /// <summary>
-        /// Publish all projects.
-        /// </summary>
-        /// <param name="project">The projects path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetPublishSettings
-        /// {
-        /// Framework = "netcoreapp2.0",
-        /// Configuration = "Release",
-        /// OutputDirectory = "./artifacts/"
-        /// };
-        /// DotNetPublish("./src/*", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetPublish(string project, global::Cake.Common.Tools.DotNet.Publish.DotNetPublishSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Test project.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// DotNetTest();
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetTest()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Test project with path.
-        /// </summary>
-        /// <param name="project">The project path.</param>
-        /// <example>
-        /// <para>Specify the path to the .csproj file in the test project.</para>
-        /// <code>
-        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj");
-        /// </code>
-        /// <para>You could also specify a task that runs multiple test projects.</para>
-        /// <para>Cake task:</para>
-        /// <code>
-        /// Task("Test")
-        /// .Does(() =&gt;
-        /// {
-        /// var projectFiles = GetFiles("./test/**/*.csproj");
-        /// foreach(var file in projectFiles)
-        /// {
-        /// DotNetTest(file.FullPath);
-        /// }
-        /// });
-        /// </code>
-        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
-        /// <code>
-        /// DotNetTest("./test/Project.Tests/");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetTest(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Test.DotNetTestSettings)">
-        /// <summary>
-        /// Test project with settings.
-        /// </summary>
-        /// <param name="project">The project path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj", settings);
-        /// </code>
-        /// <para>You could also specify a task that runs multiple test projects.</para>
-        /// <para>Cake task:</para>
-        /// <code>
-        /// Task("Test")
-        /// .Does(() =&gt;
-        /// {
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// var projectFiles = GetFiles("./test/**/*.csproj");
-        /// foreach(var file in projectFiles)
-        /// {
-        /// DotNetTest(file.FullPath, settings);
-        /// }
-        /// });
-        /// </code>
-        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
-        /// <code>
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// DotNetTest("./test/Project.Tests/", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetTest(string project, global::Cake.Common.Tools.DotNet.Test.DotNetTestSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder,Cake.Common.Tools.DotNet.Test.DotNetTestSettings)">
-        /// <summary>
-        /// Test project with settings.
-        /// </summary>
-        /// <param name="project">The project path.</param>
-        /// <param name="arguments">The arguments.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj", settings);
-        /// </code>
-        /// <para>You could also specify a task that runs multiple test projects.</para>
-        /// <para>Cake task:</para>
-        /// <code>
-        /// Task("Test")
-        /// .Does(() =&gt;
-        /// {
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// var projectFiles = GetFiles("./test/**/*.csproj");
-        /// foreach(var file in projectFiles)
-        /// {
-        /// DotNetTest(file.FullPath, "MSTest.MapInconclusiveToFailed=true", settings);
-        /// }
-        /// });
-        /// </code>
-        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
-        /// <code>
-        /// var settings = new DotNetTestSettings
-        /// {
-        /// Configuration = "Release"
-        /// };
-        /// DotNetTest("./test/Project.Tests/", "MSTest.MapInconclusiveToFailed=true", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetTest(string project, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Test.DotNetTestSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project, arguments, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Cleans a project's output.
-        /// </summary>
-        /// <param name="project">The project's path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetClean("./src/project");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetClean(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Clean.DotNetCleanSettings)">
-        /// <summary>
-        /// Cleans a project's output.
-        /// </summary>
-        /// <param name="project">The projects path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetCleanSettings
-        /// {
-        /// Framework = "netcoreapp2.0",
-        /// Configuration = "Debug",
-        /// OutputDirectory = "./artifacts/"
-        /// };
-        /// DotNetClean("./src/project", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetClean(string project, global::Cake.Common.Tools.DotNet.Clean.DotNetCleanSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetClean(Context, project, settings);
+        public static void DotNetMSBuild(string projectOrDirectory, global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings, global::System.Action<global::System.Collections.Generic.IEnumerable<string>> standardOutputAction)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, projectOrDirectory, settings, standardOutputAction);
 
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetNuGetDelete(Cake.Core.ICakeContext)">
         /// <summary>
@@ -4719,6 +4764,527 @@ public static partial class Program
         public static void DotNetPack(string project, global::Cake.Common.Tools.DotNet.Pack.DotNetPackSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetPack(Context, project, settings);
 
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Adds or updates a package reference in a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to add.</param>
+        /// <example>
+        /// <code>
+        /// DotNetAddPackage("Cake.FileHelper");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddPackage(string packageName)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,System.String)">
+        /// <summary>
+        /// Adds or updates a package reference in a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to add.</param>
+        /// <param name="project">The target project file path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetAddPackage("Cake.FileHelper", "ToDo.csproj");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddPackage(string packageName, string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings)">
+        /// <summary>
+        /// Adds or updates a package reference in a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to add.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetPackageAddSettings
+        /// {
+        /// NoRestore = true,
+        /// Version = "6.1.3"
+        /// };
+        /// DotNetAddPackage("Cake.FileHelper", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddPackage(string packageName, global::Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,System.String,Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings)">
+        /// <summary>
+        /// Adds or updates a package reference in a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to add.</param>
+        /// <param name="project">The target project file path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetPackageAddSettings
+        /// {
+        /// NoRestore = true,
+        /// Version = "6.1.3"
+        /// };
+        /// DotNetAddPackage("Cake.FileHelper", "ToDo.csproj", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddPackage(string packageName, string project, global::Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Removes package reference from a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to remove.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRemovePackage("Cake.FileHelper");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemovePackage(string packageName)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Cake.Core.ICakeContext,System.String,System.String)">
+        /// <summary>
+        /// Removes package reference from a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to remove.</param>
+        /// <param name="project">The target project file path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRemovePackage("Cake.FileHelper", "ToDo.csproj");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemovePackage(string packageName, string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings)">
+        /// <summary>
+        /// List packages on available from source using specified settings.
+        /// </summary>
+        /// <param name="searchTerm">The search term.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>List of packages with their version.</returns>
+        /// <example>
+        /// <code>
+        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
+        /// AllVersions = false,
+        /// Prerelease = false
+        /// });
+        /// foreach (var package in packageList)
+        /// {
+        /// Information("Found package {0}, version {1}", package.Name, package.Version);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(string searchTerm, global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, searchTerm, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// List packages on available from source using specified settings.
+        /// </summary>
+        /// <param name="searchTerm">The package Id.</param>
+        /// <returns>List of packages with their version.</returns>
+        /// <example>
+        /// <code>
+        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
+        /// AllVersions = false,
+        /// Prerelease = false
+        /// });
+        /// foreach (var package in packageList)
+        /// {
+        /// Information("Found package {0}, version {1}", package.Name, package.Version);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(string searchTerm)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, searchTerm);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings)">
+        /// <summary>
+        /// List packages on available from source using specified settings.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <returns>List of packages with their version.</returns>
+        /// <example>
+        /// <code>
+        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
+        /// AllVersions = false,
+        /// Prerelease = false
+        /// });
+        /// foreach (var package in packageList)
+        /// {
+        /// Information("Found package {0}, version {1}", package.Name, package.Version);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Lists the package references for a project or solution.
+        /// </summary>
+        /// <returns>The the package references.</returns>
+        /// <example>
+        /// <code>
+        /// DotNetPackageList output = DotNetListPackage();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Lists the package references for a project or solution.
+        /// </summary>
+        /// <param name="project">The project or solution file to operate on. If not specified, the command searches the current directory for one. If more than one solution or project is found, an error is thrown.</param>
+        /// <returns>The the package references.</returns>
+        /// <example>
+        /// <code>
+        /// DotNetPackageList output = DotNetListPackage("./src/MyProject/MyProject.csproj");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.List.DotNetPackageListSettings)">
+        /// <summary>
+        /// Lists the package references for a project or solution.
+        /// </summary>
+        /// <param name="project">The project or solution file to operate on. If not specified, the command searches the current directory for one. If more than one solution or project is found, an error is thrown.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The the package references.</returns>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetPackageListSettings
+        /// {
+        /// Outdated = true
+        /// };
+        /// DotNetPackageList output = DotNetListPackage("./src/MyProject/MyProject.csproj", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage(string project, global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageListSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Publish all projects.
+        /// </summary>
+        /// <param name="project">The projects path.</param>
+        /// <example>
+        /// <code>
+        /// DotNetPublish("./src/*");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetPublish(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Publish.DotNetPublishSettings)">
+        /// <summary>
+        /// Publish all projects.
+        /// </summary>
+        /// <param name="project">The projects path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetPublishSettings
+        /// {
+        /// Framework = "netcoreapp2.0",
+        /// Configuration = "Release",
+        /// OutputDirectory = "./artifacts/"
+        /// };
+        /// DotNetPublish("./src/*", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetPublish(string project, global::Cake.Common.Tools.DotNet.Publish.DotNetPublishSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetPublish(Context, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Adds project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <example>
+        /// <code>
+        /// DotNetAddReference(GetFiles("./src/*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, projectReferences);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings)">
+        /// <summary>
+        /// Adds project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetReferenceAddSettings
+        /// {
+        /// Framework = "net8.0"
+        /// };
+        /// DotNetAddReference(GetFiles("./src/*.csproj"), settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, projectReferences, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Adds project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="project">The target project file path. If not specified, the command searches the current directory for one.</param>
+        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <example>
+        /// <code>
+        /// DotNetAddReference("./app/app.csproj", GetFiles("./src/*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, project, projectReferences);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings)">
+        /// <summary>
+        /// Adds project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="project">The target project file path. If not specified, the command searches the current directory for one.</param>
+        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetReferenceAddSettings
+        /// {
+        /// Framework = "net8.0"
+        /// };
+        /// DotNetAddReference("./app/app.csproj", GetFiles("./src/*.csproj"), settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetAddReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, project, projectReferences, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Removes project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRemoveReference(GetFiles("./src/*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemoveReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, projectReferences);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings)">
+        /// <summary>
+        /// Removes project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetReferenceRemoveSettings
+        /// {
+        /// Framework = "net8.0"
+        /// };
+        /// DotNetRemoveReference(GetFiles("./src/*.csproj"), settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemoveReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, projectReferences, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Removes project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="project">Target project file. If not specified, the command searches the current directory for one.</param>
+        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRemoveReference("./app/app.csproj", GetFiles("./src/*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemoveReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, project, projectReferences);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings)">
+        /// <summary>
+        /// Removes project-to-project (P2P) references.
+        /// </summary>
+        /// <param name="project">Target project file. If not specified, the command searches the current directory for one.</param>
+        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetReferenceRemoveSettings
+        /// {
+        /// Framework = "net8.0"
+        /// };
+        /// DotNetRemoveReference("./app/app.csproj", GetFiles("./src/*.csproj"), settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemoveReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, project, projectReferences, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Lists project-to-project references.
+        /// </summary>
+        /// <returns>The list of project-to-project references.</returns>
+        /// <example>
+        /// <code>
+        /// var references = DotNetListReference();
+        /// foreach (var reference in references)
+        /// {
+        /// Information(reference);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Lists project-to-project references.
+        /// </summary>
+        /// <param name="project">The project file to operate on. If a file is not specified, the command will search the current directory for one.</param>
+        /// <returns>The list of project-to-project references.</returns>
+        /// <example>
+        /// <code>
+        /// var references = DotNetListReference("./app/app.csproj");
+        /// foreach (var reference in references)
+        /// {
+        /// Information(reference);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Reference.List.DotNetReferenceListSettings)">
+        /// <summary>
+        /// Lists project-to-project references.
+        /// </summary>
+        /// <param name="project">The project file to operate on. If a file is not specified, the command will search the current directory for one.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The list of project-to-project references.</returns>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetReferenceListSettings
+        /// {
+        /// Verbosity = DotNetVerbosity.Diagnostic
+        /// };
+        /// var references = DotNetListReference("./app/app.csproj", settings);
+        /// foreach (var reference in references)
+        /// {
+        /// Information(reference);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference(string project, global::Cake.Common.Tools.DotNet.Reference.List.DotNetReferenceListSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Restore all NuGet Packages.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// DotNetRestore();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRestore()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Restore all NuGet Packages in the specified path.
+        /// </summary>
+        /// <param name="root">Path to the project file to restore.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRestore("./src/MyProject/MyProject.csproj");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRestore(string root)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, root);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings)">
+        /// <summary>
+        /// Restore all NuGet Packages with the settings.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetRestoreSettings
+        /// {
+        /// Sources = new[] {"https://www.example.com/nugetfeed", "https://www.example.com/nugetfeed2"},
+        /// FallbackSources = new[] {"https://www.example.com/fallbacknugetfeed"},
+        /// PackagesDirectory = "./packages",
+        /// DotNetVerbosity.Information,
+        /// DisableParallel = true,
+        /// InferRuntimes = new[] {"runtime1", "runtime2"}
+        /// };
+        /// DotNetRestore(settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRestore(global::Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings)">
+        /// <summary>
+        /// Restore all NuGet Packages in the specified path with settings.
+        /// </summary>
+        /// <param name="root">Path to the project file to restore.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetRestoreSettings
+        /// {
+        /// Sources = new[] {"https://www.example.com/nugetfeed", "https://www.example.com/nugetfeed2"},
+        /// FallbackSources = new[] {"https://www.example.com/fallbacknugetfeed"},
+        /// PackagesDirectory = "./packages",
+        /// DotNetVerbosity.Information,
+        /// DisableParallel = true,
+        /// InferRuntimes = new[] {"runtime1", "runtime2"}
+        /// };
+        /// DotNetRestore("./src/MyProject/MyProject.csproj", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRestore(string root, global::Cake.Common.Tools.DotNet.Restore.DotNetRestoreSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRestore(Context, root, settings);
+
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRun(Cake.Core.ICakeContext)">
         /// <summary>
         /// Run all projects.
@@ -4802,78 +5368,330 @@ public static partial class Program
         public static void DotNetRun(string project, global::Cake.Common.Tools.DotNet.Run.DotNetRunSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRun(Context, project, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSDKCheck(Cake.Core.ICakeContext)">
         /// <summary>
-        /// Builds the specified targets in a project file found in the current working directory.
+        /// Lists the latest available version of the .NET SDK and .NET Runtime.
         /// </summary>
         /// <example>
         /// <code>
-        /// DotNetMSBuild();
+        /// DotNetSDKCheck();
         /// </code>
         /// </example>
         /// </member>
-        public static void DotNetMSBuild()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context);
+        public static void DotNetSDKCheck()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSDKCheck(Context);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,System.String)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext)">
         /// <summary>
-        /// Builds the specified targets in the project file.
+        /// Lists all projects in a solution file.
         /// </summary>
-        /// <param name="projectOrDirectory">Project file or directory to search for project file.</param>
+        /// <returns>The list of projects.</returns>
         /// <example>
         /// <code>
-        /// DotNetMSBuild("foobar.proj");
+        /// var projects = DotNetSlnList();
+        /// foreach (var project in projects)
+        /// {
+        /// Information(project);
+        /// }
         /// </code>
         /// </example>
-        /// <remarks>
-        /// If a directory is specified, MSBuild searches that directory for a project file.
-        /// </remarks>
         /// </member>
-        public static void DotNetMSBuild(string projectOrDirectory)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, projectOrDirectory);
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext,Cake.Core.IO.FilePath)">
         /// <summary>
-        /// Builds the specified targets in a project file found in the current working directory.
+        /// Lists all projects in a solution file.
         /// </summary>
+        /// <param name="solution">The solution file to use. If this argument is omitted, the command searches the current directory for one. If it finds no solution file or multiple solution files, the command fails.</param>
+        /// <returns>The list of projects.</returns>
+        /// <example>
+        /// <code>
+        /// var projects = DotNetSlnList("./app/app.sln");
+        /// foreach (var project in projects)
+        /// {
+        /// Information(project);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList(global::Cake.Core.IO.FilePath solution)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context, solution);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Common.Tools.DotNet.Sln.List.DotNetSlnListSettings)">
+        /// <summary>
+        /// Lists all projects in a solution file.
+        /// </summary>
+        /// <param name="solution">The solution file to use. If this argument is omitted, the command searches the current directory for one. If it finds no solution file or multiple solution files, the command fails.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The list of projects.</returns>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetSlnListSettings
+        /// {
+        /// Verbosity = DotNetVerbosity.Diagnostic
+        /// };
+        /// var projects = DotNetSlnList("./app/app.sln");
+        /// foreach (var project in projects)
+        /// {
+        /// Information(project);
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList(global::Cake.Core.IO.FilePath solution, global::Cake.Common.Tools.DotNet.Sln.List.DotNetSlnListSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context, solution, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Adds one or more projects to the solution file.
+        /// </summary>
+        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <example>
+        /// <code>
+        /// DotNetSlnAdd(GetFiles("./*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetSlnAdd(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, projectPath);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Adds one or more projects to the solution file.
+        /// </summary>
+        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
+        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
+        /// <example>
+        /// <code>
+        /// DotNetSlnAdd("app.sln", GetFiles("./*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetSlnAdd(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, solution, projectPath);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings)">
+        /// <summary>
+        /// Adds one or more projects to the solution file.
+        /// </summary>
+        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// var settings = new DotNetMSBuildSettings
+        /// var settings = new DotNetSlnAddSettings
         /// {
-        /// NoLogo = true,
-        /// MaxCpuCount = -1
+        /// SolutionFolder = "libs/math"
         /// };
-        /// DotNetMSBuild(settings);
+        /// DotNetSlnAdd(GetFiles("./*.csproj"), settings);
         /// </code>
         /// </example>
         /// </member>
-        public static void DotNetMSBuild(global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, settings);
+        public static void DotNetSlnAdd(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath, global::Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, projectPath, settings);
 
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings)">
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings)">
         /// <summary>
-        /// Builds the specified targets in the project file.
+        /// Adds one or more projects to the solution file.
         /// </summary>
-        /// <param name="projectOrDirectory">Project file or directory to search for project file.</param>
+        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
+        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
-        /// var settings = new DotNetMSBuildSettings
+        /// var settings = new DotNetSlnAddSettings
         /// {
-        /// NoLogo = true,
-        /// MaxCpuCount = -1
+        /// SolutionFolder = "libs/math"
         /// };
-        /// DotNetMSBuild("foobar.proj", settings);
+        /// DotNetSlnAdd("app.sln", GetFiles("./*.csproj"), settings);
         /// </code>
         /// </example>
-        /// <remarks>
-        /// If a project file is not specified, MSBuild searches the current working directory for a file that has a file
-        /// extension that ends in "proj" and uses that file. If a directory is specified, MSBuild searches that directory for a project file.
-        /// </remarks>
         /// </member>
-        public static void DotNetMSBuild(string projectOrDirectory, global::Cake.Common.Tools.DotNet.MSBuild.DotNetMSBuildSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetMSBuild(Context, projectOrDirectory, settings);
+        public static void DotNetSlnAdd(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath, global::Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, solution, projectPath, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Removes a project or multiple projects from the solution file.
+        /// </summary>
+        /// <param name="projectPath">The path to the project or projects to remove from the solution.</param>
+        /// <example>
+        /// <code>
+        /// DotNetSlnRemove(GetFiles("./*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetSlnRemove(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Context, projectPath);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
+        /// <summary>
+        /// Removes a project or multiple projects from the solution file.
+        /// </summary>
+        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
+        /// <param name="projectPath">The path to the project or projects to remove from the solution.</param>
+        /// <example>
+        /// <code>
+        /// DotNetSlnRemove("app.sln", GetFiles("./*.csproj"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetSlnRemove(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Context, solution, projectPath);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Sln.Remove.DotNetSlnRemoveSettings)">
+        /// <summary>
+        /// Removes a project or multiple projects from the solution file.
+        /// </summary>
+        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
+        /// <param name="projectPath">The path to the project or projects to remove from the solution.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetSlnRemoveSettings
+        /// {
+        /// Verbosity = DotNetVerbosity.Diagnostic
+        /// };
+        /// DotNetSlnRemove("app.sln", GetFiles("./*.csproj"), settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetSlnRemove(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath, global::Cake.Common.Tools.DotNet.Sln.Remove.DotNetSlnRemoveSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnRemove(Context, solution, projectPath, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Test project.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// DotNetTest();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetTest()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Test project with path.
+        /// </summary>
+        /// <param name="project">The project path.</param>
+        /// <example>
+        /// <para>Specify the path to the .csproj file in the test project.</para>
+        /// <code>
+        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj");
+        /// </code>
+        /// <para>You could also specify a task that runs multiple test projects.</para>
+        /// <para>Cake task:</para>
+        /// <code>
+        /// Task("Test")
+        /// .Does(() =&gt;
+        /// {
+        /// var projectFiles = GetFiles("./test/**/*.csproj");
+        /// foreach (var file in projectFiles)
+        /// {
+        /// DotNetTest(file.FullPath);
+        /// }
+        /// });
+        /// </code>
+        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
+        /// <code>
+        /// DotNetTest("./test/Project.Tests/");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetTest(string project)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Test.DotNetTestSettings)">
+        /// <summary>
+        /// Test project with settings.
+        /// </summary>
+        /// <param name="project">The project path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj", settings);
+        /// </code>
+        /// <para>You could also specify a task that runs multiple test projects.</para>
+        /// <para>Cake task:</para>
+        /// <code>
+        /// Task("Test")
+        /// .Does(() =&gt;
+        /// {
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// var projectFiles = GetFiles("./test/**/*.csproj");
+        /// foreach (var file in projectFiles)
+        /// {
+        /// DotNetTest(file.FullPath, settings);
+        /// }
+        /// });
+        /// </code>
+        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
+        /// <code>
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// DotNetTest("./test/Project.Tests/", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetTest(string project, global::Cake.Common.Tools.DotNet.Test.DotNetTestSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder,Cake.Common.Tools.DotNet.Test.DotNetTestSettings)">
+        /// <summary>
+        /// Test project with settings.
+        /// </summary>
+        /// <param name="project">The project path.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// DotNetTest("./test/Project.Tests/Project.Tests.csproj", settings);
+        /// </code>
+        /// <para>You could also specify a task that runs multiple test projects.</para>
+        /// <para>Cake task:</para>
+        /// <code>
+        /// Task("Test")
+        /// .Does(() =&gt;
+        /// {
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// var projectFiles = GetFiles("./test/**/*.csproj");
+        /// foreach (var file in projectFiles)
+        /// {
+        /// DotNetTest(file.FullPath, "MSTest.MapInconclusiveToFailed=true", settings);
+        /// }
+        /// });
+        /// </code>
+        /// <para>If your test project is using project.json, the project parameter should just be the directory path.</para>
+        /// <code>
+        /// var settings = new DotNetTestSettings
+        /// {
+        /// Configuration = "Release"
+        /// };
+        /// DotNetTest("./test/Project.Tests/", "MSTest.MapInconclusiveToFailed=true", settings);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetTest(string project, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Test.DotNetTestSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTest(Context, project, arguments, settings);
 
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetVSTest(Cake.Core.ICakeContext,Cake.Core.IO.GlobPattern)">
         /// <summary>
@@ -5041,187 +5859,6 @@ public static partial class Program
         /// </member>
         public static void DotNetTool(global::Cake.Core.IO.FilePath projectPath, string command, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Tool.DotNetToolSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTool(Context, projectPath, command, arguments, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Shuts down build servers that are started from dotnet.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// DotNetBuildServerShutdown();
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetBuildServerShutdown()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Context);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.BuildServer.DotNetBuildServerShutdownSettings)">
-        /// <summary>
-        /// Shuts down build servers that are started from dotnet.
-        /// </summary>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetBuildServerShutdownSettings
-        /// {
-        /// MSBuild = true
-        /// };
-        /// DotNetBuildServerShutdown(settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetBuildServerShutdown(global::Cake.Common.Tools.DotNet.BuildServer.DotNetBuildServerShutdownSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetBuildServerShutdown(Context, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Formats code to match editorconfig settings.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetFormat("./src/project");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormat(string root)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Context, root);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
-        /// <summary>
-        /// Formats code to match editorconfig settings.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetFormatSettings
-        /// {
-        /// NoRestore = true,
-        /// Include = "Program.cs Utility\Logging.cs",
-        /// Severity = DotNetFormatSeverity.Error
-        /// };
-        /// DotNetFormat("./src/project", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormat(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormat(Context, root, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Format code to match editorconfig settings for whitespace.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetFormatWhitespace("./src/*");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatWhitespace(string root)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Context, root);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
-        /// <summary>
-        /// Format code to match editorconfig settings for whitespace.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetFormatSettings
-        /// {
-        /// NoRestore = true,
-        /// Include = "Program.cs Utility\Logging.cs"
-        /// };
-        /// DotNetFormatWhitespace("./src/*", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatWhitespace(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatWhitespace(Context, root, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Format code to match editorconfig settings for code style.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetFormatStyle("./src/*");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatStyle(string root)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Context, root);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
-        /// <summary>
-        /// Format code to match editorconfig settings for code style.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetFormatSettings
-        /// {
-        /// NoRestore = true,
-        /// Include = "Program.cs Utility\Logging.cs"
-        /// };
-        /// DotNetFormatStyle("./src/*", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatStyle(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatStyle(Context, root, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Format code to match editorconfig settings for analyzers.
-        /// </summary>
-        /// <param name="project">The project or solution path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetFormatAnalyzers("./src/*");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatAnalyzers(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Format.DotNetFormatSettings)">
-        /// <summary>
-        /// Format code to match editorconfig settings for analyzers.
-        /// </summary>
-        /// <param name="root">The project or solution path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetFormatSettings
-        /// {
-        /// NoRestore = true,
-        /// Include = "Program.cs Utility\Logging.cs"
-        /// };
-        /// DotNetFormatAnalyzers("./src/*", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetFormatAnalyzers(string root, global::Cake.Common.Tools.DotNet.Format.DotNetFormatSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetFormatAnalyzers(Context, root, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSDKCheck(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Lists the latest available version of the .NET SDK and .NET Runtime.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// DotNetSDKCheck();
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetSDKCheck()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSDKCheck(Context);
 
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetWorkloadSearch(Cake.Core.ICakeContext)">
         /// <summary>
@@ -5518,547 +6155,6 @@ public static partial class Program
         /// </member>
         public static void DotNetWorkloadRestore(string project, global::Cake.Common.Tools.DotNet.Workload.Restore.DotNetWorkloadRestoreSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetWorkloadRestore(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Adds or updates a package reference in a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to add.</param>
-        /// <example>
-        /// <code>
-        /// DotNetAddPackage("Cake.FileHelper");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddPackage(string packageName)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,System.String)">
-        /// <summary>
-        /// Adds or updates a package reference in a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to add.</param>
-        /// <param name="project">The target project file path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetAddPackage("Cake.FileHelper", "ToDo.csproj");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddPackage(string packageName, string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings)">
-        /// <summary>
-        /// Adds or updates a package reference in a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to add.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetPackageAddSettings
-        /// {
-        /// NoRestore = true,
-        /// Version = "6.1.3"
-        /// };
-        /// DotNetAddPackage("Cake.FileHelper", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddPackage(string packageName, global::Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Cake.Core.ICakeContext,System.String,System.String,Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings)">
-        /// <summary>
-        /// Adds or updates a package reference in a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to add.</param>
-        /// <param name="project">The target project file path.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetPackageAddSettings
-        /// {
-        /// NoRestore = true,
-        /// Version = "6.1.3"
-        /// };
-        /// DotNetAddPackage("Cake.FileHelper", "ToDo.csproj", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddPackage(string packageName, string project, global::Cake.Common.Tools.DotNet.Package.Add.DotNetPackageAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddPackage(Context, packageName, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Removes package reference from a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to remove.</param>
-        /// <example>
-        /// <code>
-        /// DotNetRemovePackage("Cake.FileHelper");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemovePackage(string packageName)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Cake.Core.ICakeContext,System.String,System.String)">
-        /// <summary>
-        /// Removes package reference from a project file.
-        /// </summary>
-        /// <param name="packageName">The package reference to remove.</param>
-        /// <param name="project">The target project file path.</param>
-        /// <example>
-        /// <code>
-        /// DotNetRemovePackage("Cake.FileHelper", "ToDo.csproj");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemovePackage(string packageName, string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Adds project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <example>
-        /// <code>
-        /// DotNetAddReference(GetFiles("./src/*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, projectReferences);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings)">
-        /// <summary>
-        /// Adds project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetReferenceAddSettings
-        /// {
-        /// Framework = "net8.0"
-        /// };
-        /// DotNetAddReference(GetFiles("./src/*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, projectReferences, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Adds project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="project">The target project file path. If not specified, the command searches the current directory for one.</param>
-        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <example>
-        /// <code>
-        /// DotNetAddReference("./app/app.csproj", GetFiles("./src/*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, project, projectReferences);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings)">
-        /// <summary>
-        /// Adds project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="project">The target project file path. If not specified, the command searches the current directory for one.</param>
-        /// <param name="projectReferences">One or more project references to add. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetReferenceAddSettings
-        /// {
-        /// Framework = "net8.0"
-        /// };
-        /// DotNetAddReference("./app/app.csproj", GetFiles("./src/*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetAddReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Add.DotNetReferenceAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetAddReference(Context, project, projectReferences, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Removes project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
-        /// <example>
-        /// <code>
-        /// DotNetRemoveReference(GetFiles("./src/*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemoveReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, projectReferences);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings)">
-        /// <summary>
-        /// Removes project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetReferenceRemoveSettings
-        /// {
-        /// Framework = "net8.0"
-        /// };
-        /// DotNetRemoveReference(GetFiles("./src/*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemoveReference(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, projectReferences, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Removes project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="project">Target project file. If not specified, the command searches the current directory for one.</param>
-        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
-        /// <example>
-        /// <code>
-        /// DotNetRemoveReference("./app/app.csproj", GetFiles("./src/*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemoveReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, project, projectReferences);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Cake.Core.ICakeContext,System.String,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings)">
-        /// <summary>
-        /// Removes project-to-project (P2P) references.
-        /// </summary>
-        /// <param name="project">Target project file. If not specified, the command searches the current directory for one.</param>
-        /// <param name="projectReferences">Project-to-project (P2P) references to remove. You can specify one or multiple projects. Glob patterns are supported on Unix/Linux based terminals.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetReferenceRemoveSettings
-        /// {
-        /// Framework = "net8.0"
-        /// };
-        /// DotNetRemoveReference("./app/app.csproj", GetFiles("./src/*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetRemoveReference(string project, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectReferences, global::Cake.Common.Tools.DotNet.Reference.Remove.DotNetReferenceRemoveSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemoveReference(Context, project, projectReferences, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Lists project-to-project references.
-        /// </summary>
-        /// <returns>The list of project-to-project references.</returns>
-        /// <example>
-        /// <code>
-        /// var references = DotNetListReference();
-        /// foreach (var reference in references)
-        /// {
-        /// Information(reference);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Lists project-to-project references.
-        /// </summary>
-        /// <param name="project">The project file to operate on. If a file is not specified, the command will search the current directory for one.</param>
-        /// <returns>The list of project-to-project references.</returns>
-        /// <example>
-        /// <code>
-        /// var references = DotNetListReference("./app/app.csproj");
-        /// foreach (var reference in references)
-        /// {
-        /// Information(reference);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Reference.List.DotNetReferenceListSettings)">
-        /// <summary>
-        /// Lists project-to-project references.
-        /// </summary>
-        /// <param name="project">The project file to operate on. If a file is not specified, the command will search the current directory for one.</param>
-        /// <param name="settings">The settings.</param>
-        /// <returns>The list of project-to-project references.</returns>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetReferenceListSettings
-        /// {
-        /// Verbosity = DotNetVerbosity.Diagnostic
-        /// };
-        /// var references = DotNetListReference("./app/app.csproj", settings);
-        /// foreach (var reference in references)
-        /// {
-        /// Information(reference);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetListReference(string project, global::Cake.Common.Tools.DotNet.Reference.List.DotNetReferenceListSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListReference(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings)">
-        /// <summary>
-        /// List packages on available from source using specified settings.
-        /// </summary>
-        /// <param name="searchTerm">The search term.</param>
-        /// <param name="settings">The settings.</param>
-        /// <returns>List of packages with their version.</returns>
-        /// <example>
-        /// <code>
-        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
-        /// AllVersions = false,
-        /// Prerelease = false
-        /// });
-        /// foreach(var package in packageList)
-        /// {
-        /// Information("Found package {0}, version {1}", package.Name, package.Version);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(string searchTerm, global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, searchTerm, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// List packages on available from source using specified settings.
-        /// </summary>
-        /// <param name="searchTerm">The package Id.</param>
-        /// <returns>List of packages with their version.</returns>
-        /// <example>
-        /// <code>
-        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
-        /// AllVersions = false,
-        /// Prerelease = false
-        /// });
-        /// foreach(var package in packageList)
-        /// {
-        /// Information("Found package {0}, version {1}", package.Name, package.Version);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(string searchTerm)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, searchTerm);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings)">
-        /// <summary>
-        /// List packages on available from source using specified settings.
-        /// </summary>
-        /// <param name="settings">The settings.</param>
-        /// <returns>List of packages with their version.</returns>
-        /// <example>
-        /// <code>
-        /// var packageList = DotNetPackageSearch("Cake", new DotNetPackageSearchSettings {
-        /// AllVersions = false,
-        /// Prerelease = false
-        /// });
-        /// foreach(var package in packageList)
-        /// {
-        /// Information("Found package {0}, version {1}", package.Name, package.Version);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchItem> DotNetSearchPackage(global::Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Context, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Lists the package references for a project or solution.
-        /// </summary>
-        /// <returns>The the package references.</returns>
-        /// <example>
-        /// <code>
-        /// DotNetPackageList output = DotNetListPackage();
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext,System.String)">
-        /// <summary>
-        /// Lists the package references for a project or solution.
-        /// </summary>
-        /// <param name="project">The project or solution file to operate on. If not specified, the command searches the current directory for one. If more than one solution or project is found, an error is thrown.</param>
-        /// <returns>The the package references.</returns>
-        /// <example>
-        /// <code>
-        /// DotNetPackageList output = DotNetListPackage("./src/MyProject/MyProject.csproj");
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage(string project)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context, project);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.List.DotNetPackageListSettings)">
-        /// <summary>
-        /// Lists the package references for a project or solution.
-        /// </summary>
-        /// <param name="project">The project or solution file to operate on. If not specified, the command searches the current directory for one. If more than one solution or project is found, an error is thrown.</param>
-        /// <param name="settings">The settings.</param>
-        /// <returns>The the package references.</returns>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetPackageListSettings
-        /// {
-        /// Outdated = true
-        /// };
-        /// DotNetPackageList output = DotNetListPackage("./src/MyProject/MyProject.csproj", settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageList DotNetListPackage(string project, global::Cake.Common.Tools.DotNet.Package.List.DotNetPackageListSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetListPackage(Context, project, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext)">
-        /// <summary>
-        /// Lists all projects in a solution file.
-        /// </summary>
-        /// <returns>The list of projects.</returns>
-        /// <example>
-        /// <code>
-        /// var projects = DotNetSlnList();
-        /// foreach (var project in projects)
-        /// {
-        /// Information(project);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList()
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext,Cake.Core.IO.FilePath)">
-        /// <summary>
-        /// Lists all projects in a solution file.
-        /// </summary>
-        /// <param name="solution">The solution file to use. If this argument is omitted, the command searches the current directory for one. If it finds no solution file or multiple solution files, the command fails.</param>
-        /// <returns>The list of projects.</returns>
-        /// <example>
-        /// <code>
-        /// var projects = DotNetSlnList("./app/app.sln");
-        /// foreach (var project in projects)
-        /// {
-        /// Information(project);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList(global::Cake.Core.IO.FilePath solution)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context, solution);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Common.Tools.DotNet.Sln.List.DotNetSlnListSettings)">
-        /// <summary>
-        /// Lists all projects in a solution file.
-        /// </summary>
-        /// <param name="solution">The solution file to use. If this argument is omitted, the command searches the current directory for one. If it finds no solution file or multiple solution files, the command fails.</param>
-        /// <param name="settings">The settings.</param>
-        /// <returns>The list of projects.</returns>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetSlnListSettings
-        /// {
-        /// Verbosity = DotNetVerbosity.Diagnostic
-        /// };
-        /// var projects = DotNetSlnList("./app/app.sln");
-        /// foreach (var project in projects)
-        /// {
-        /// Information(project);
-        /// }
-        /// </code>
-        /// </example>
-        /// </member>
-        public static global::System.Collections.Generic.IEnumerable<string> DotNetSlnList(global::Cake.Core.IO.FilePath solution, global::Cake.Common.Tools.DotNet.Sln.List.DotNetSlnListSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnList(Context, solution, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Adds one or more projects to the solution file.
-        /// </summary>
-        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <example>
-        /// <code>
-        /// DotNetSlnAdd(GetFiles("./*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetSlnAdd(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, projectPath);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath})">
-        /// <summary>
-        /// Adds one or more projects to the solution file.
-        /// </summary>
-        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
-        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <example>
-        /// <code>
-        /// DotNetSlnAdd("app.sln", GetFiles("./*.csproj"));
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetSlnAdd(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, solution, projectPath);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings)">
-        /// <summary>
-        /// Adds one or more projects to the solution file.
-        /// </summary>
-        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetSlnAddSettings
-        /// {
-        /// SolutionFolder = "libs/math"
-        /// };
-        /// DotNetSlnAdd(GetFiles("./*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetSlnAdd(global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath, global::Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, projectPath, settings);
-
-        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Collections.Generic.IEnumerable{Cake.Core.IO.FilePath},Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings)">
-        /// <summary>
-        /// Adds one or more projects to the solution file.
-        /// </summary>
-        /// <param name="solution">The solution file to use. If it is unspecified, the command searches the current directory for one and fails if there are multiple solution files.</param>
-        /// <param name="projectPath">The path to the project or projects to add to the solution. Glob patterns are supported on Unix/Linux-based systems.</param>
-        /// <param name="settings">The settings.</param>
-        /// <example>
-        /// <code>
-        /// var settings = new DotNetSlnAddSettings
-        /// {
-        /// SolutionFolder = "libs/math"
-        /// };
-        /// DotNetSlnAdd("app.sln", GetFiles("./*.csproj"), settings);
-        /// </code>
-        /// </example>
-        /// </member>
-        public static void DotNetSlnAdd(global::Cake.Core.IO.FilePath solution, global::System.Collections.Generic.IEnumerable<global::Cake.Core.IO.FilePath> projectPath, global::Cake.Common.Tools.DotNet.Sln.Add.DotNetSlnAddSettings settings)
-            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetSlnAdd(Context, solution, projectPath, settings);
 
         /// <member name="M:Cake.Common.Tools.DupFinder.DupFinderAliases.DupFinder(Cake.Core.ICakeContext,Cake.Core.IO.FilePath)">
         /// <summary>
@@ -7027,6 +7123,22 @@ public static partial class Program
         public static void MSBuild(global::Cake.Core.IO.FilePath solution)
             => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution);
 
+        /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Action{System.Collections.Generic.IEnumerable{System.String}})">
+        /// <summary>
+        /// Builds the specified solution or MsBuild project file using MSBuild.
+        /// </summary>
+        /// <param name="solution">The solution or MsBuild project file to build.</param>
+        /// <param name="standardOutputAction">The action to invoke with the standard output.</param>
+        /// <example>
+        /// <code>
+        /// MSBuild("./src/Cake.sln",
+        /// output =&gt; foreach (var line in output) outputBuilder.AppendLine(line));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void MSBuild(global::Cake.Core.IO.FilePath solution, global::System.Action<global::System.Collections.Generic.IEnumerable<string>> standardOutputAction)
+            => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution, standardOutputAction);
+
         /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Action{Cake.Common.Tools.MSBuild.MSBuildSettings})">
         /// <summary>
         /// Builds the specified solution or MsBuild project file using MSBuild.
@@ -7047,9 +7159,32 @@ public static partial class Program
         public static void MSBuild(global::Cake.Core.IO.FilePath solution, global::System.Action<global::Cake.Common.Tools.MSBuild.MSBuildSettings> configurator)
             => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution, configurator);
 
-        /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Common.Tools.MSBuild.MSBuildSettings)">
+        /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,System.Action{Cake.Common.Tools.MSBuild.MSBuildSettings},System.Action{System.Collections.Generic.IEnumerable{System.String}})">
         /// <summary>
         /// Builds the specified solution or MsBuild project file using MSBuild.
+        /// </summary>
+        /// <param name="solution">The solution or MsBuild project file to build.</param>
+        /// <param name="configurator">The settings configurator.</param>
+        /// <param name="standardOutputAction">The action to invoke with the standard output.</param>
+        /// <example>
+        /// <code>
+        /// var outputBuilder = new StringBuilder();
+        /// MSBuild("./src/Cake.sln", configurator =&gt;
+        /// configurator.SetConfiguration("Debug")
+        /// .SetVerbosity(Verbosity.Minimal)
+        /// .UseToolVersion(MSBuildToolVersion.VS2015)
+        /// .SetMSBuildPlatform(MSBuildPlatform.x86)
+        /// .SetPlatformTarget(PlatformTarget.MSIL),
+        /// output =&gt; foreach (var line in output) outputBuilder.AppendLine(line));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void MSBuild(global::Cake.Core.IO.FilePath solution, global::System.Action<global::Cake.Common.Tools.MSBuild.MSBuildSettings> configurator, global::System.Action<global::System.Collections.Generic.IEnumerable<string>> standardOutputAction)
+            => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution, configurator, standardOutputAction);
+
+        /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Common.Tools.MSBuild.MSBuildSettings)">
+        /// <summary>
+        /// Builds the specified solution using MSBuild.
         /// </summary>
         /// <param name="solution">The solution or MsBuild project file to build.</param>
         /// <param name="settings">The settings.</param>
@@ -7066,6 +7201,29 @@ public static partial class Program
         /// </member>
         public static void MSBuild(global::Cake.Core.IO.FilePath solution, global::Cake.Common.Tools.MSBuild.MSBuildSettings settings)
             => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution, settings);
+
+        /// <member name="M:Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Common.Tools.MSBuild.MSBuildSettings,System.Action{System.Collections.Generic.IEnumerable{System.String}})">
+        /// <summary>
+        /// Builds the specified solution or MsBuild project file using MSBuild.
+        /// </summary>
+        /// <param name="solution">The solution to build.</param>
+        /// <param name="settings">The settings.</param>
+        /// <param name="standardOutputAction">The action to invoke with the standard output.</param>
+        /// <example>
+        /// <code>
+        /// var outputBuilder = new StringBuilder();
+        /// MSBuild("./src/Cake.sln", new MSBuildSettings {
+        /// Verbosity = Verbosity.Minimal,
+        /// ToolVersion = MSBuildToolVersion.VS2015,
+        /// Configuration = "Release",
+        /// PlatformTarget = PlatformTarget.MSIL
+        /// },
+        /// output =&gt; foreach (var line in output) outputBuilder.AppendLine(line));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void MSBuild(global::Cake.Core.IO.FilePath solution, global::Cake.Common.Tools.MSBuild.MSBuildSettings settings, global::System.Action<global::System.Collections.Generic.IEnumerable<string>> standardOutputAction)
+            => global::Cake.Common.Tools.MSBuild.MSBuildAliases.MSBuild(Context, solution, settings, standardOutputAction);
 
         /// <member name="M:Cake.Common.Tools.MSTest.MSTestAliases.MSTest(Cake.Core.ICakeContext,Cake.Core.IO.GlobPattern)">
         /// <summary>
@@ -7605,7 +7763,7 @@ public static partial class Program
         /// <code>
         /// var solutions = GetFiles("./**/*.sln");
         /// // Restore all NuGet packages.
-        /// foreach(var solution in solutions)
+        /// foreach (var solution in solutions)
         /// {
         /// Information("Restoring {0}", solution);
         /// NuGetRestore(solution);
@@ -7641,7 +7799,7 @@ public static partial class Program
         /// <code>
         /// var solutions = GetFiles("./**/*.sln");
         /// // Restore all NuGet packages.
-        /// foreach(var solution in solutions)
+        /// foreach (var solution in solutions)
         /// {
         /// Information("Restoring {0}", solution);
         /// NuGetRestore(solution, new NuGetRestoreSettings { NoCache = true });
@@ -8230,7 +8388,7 @@ public static partial class Program
         /// AllVersions = false,
         /// Prerelease = false
         /// });
-        /// foreach(var package in packageList)
+        /// foreach (var package in packageList)
         /// {
         /// Information("Found package {0}, version {1}", package.Name, package.Version);
         /// }
@@ -8249,7 +8407,7 @@ public static partial class Program
         /// <example>
         /// <code>
         /// var packageList = NuGetList("Cake");
-        /// foreach(var package in packageList)
+        /// foreach (var package in packageList)
         /// {
         /// Information("Found package {0}, version {1}", package.Name, package.Version);
         /// }
@@ -8271,7 +8429,7 @@ public static partial class Program
         /// AllVersions = false,
         /// Prerelease = false
         /// });
-        /// foreach(var package in packageList)
+        /// foreach (var package in packageList)
         /// {
         /// Information("Found package {0}, version {1}", package.Name, package.Version);
         /// }

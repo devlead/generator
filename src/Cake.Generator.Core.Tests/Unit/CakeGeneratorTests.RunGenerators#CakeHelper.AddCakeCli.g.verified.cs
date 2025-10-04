@@ -7,6 +7,7 @@ public static partial class Program
 {
     private static partial class Helper
     {
+        [System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("AOT", "IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.", Justification = "The assmbly as been marked as non-AOT compatible.")]
         private static IServiceCollection AddCakeCli(
             IServiceCollection services
             )
