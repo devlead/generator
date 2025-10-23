@@ -30,7 +30,7 @@ Task("Pack")
 Task("UploadArtifact")
     .IsDependentOn("Pack")
     .IsDependentOn("Sign-Binaries")
-    .WithCriteria(GitHubActions.IsRunningOnGitHubActions, nameof(GitHubActions.IsRunningOnGitHubActions))
+    .WithCriteria(BuildSystem.IsRunningOnGitHubActions, nameof(BuildSystem.IsRunningOnGitHubActions))
     .Does<BuildData>(UploadArtifact);
 
 Task("IntegrationTest-Setup")
@@ -59,7 +59,7 @@ Task("IntegrationTest-PrepareProjects")
 
 Task("IntegrationTest-UploadTestCases-Artifacts")
     .IsDependentOn("IntegrationTest-PrepareProjects")
-    .WithCriteria(GitHubActions.IsRunningOnGitHubActions, nameof(GitHubActions.IsRunningOnGitHubActions))
+    .WithCriteria(BuildSystem.IsRunningOnGitHubActions, nameof(BuildSystem.IsRunningOnGitHubActions))
     .Does<BuildData>(IntegrationTestUploadTestCasesArtifacts);
 
 Task("IntegrationTest-Execute")

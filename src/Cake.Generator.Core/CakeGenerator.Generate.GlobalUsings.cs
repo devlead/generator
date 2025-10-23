@@ -8,6 +8,11 @@ public partial class CakeGenerator
 {
     private static string GenerateGlobalUsings(List<MethodInfo> methods)
     {
+        var excludedNamespaces = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Cake.Common.Build" // Exclude Cake.Common.Build to avoid conflicts with BuildSystem property and class.
+        };
+
         var foundNamespaces = new HashSet<string>(StringComparer.Ordinal)
         {
             "System",
@@ -55,6 +60,7 @@ public partial class CakeGenerator
         var globalUsings = string.Join(
                                 "\n",
                                 foundNamespaces
+                                    .Except(excludedNamespaces)
                                     .OrderBy(x => x)
                                     .Select(ns => $"global using global::{ns};"));
         sb.StringBuilder.AppendLine(globalUsings);
