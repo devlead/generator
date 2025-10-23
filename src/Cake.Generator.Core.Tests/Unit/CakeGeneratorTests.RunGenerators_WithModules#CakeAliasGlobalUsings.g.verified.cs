@@ -3,7 +3,6 @@
 
 global using global::Cake.Cli;
 global using global::Cake.Common;
-global using global::Cake.Common.Build;
 global using global::Cake.Common.Build.AppVeyor;
 global using global::Cake.Common.Build.AppVeyor.Data;
 global using global::Cake.Common.Build.AzurePipelines;
