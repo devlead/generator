@@ -71,7 +71,7 @@ public static partial class Program
 
         private class CakeArgumentsCommand : Command<CakeAppSettings>
         {
-            public override int Execute(Spectre.Console.Cli.CommandContext context, CakeAppSettings settings)
+            public override int Execute(Spectre.Console.Cli.CommandContext context, CakeAppSettings settings, CancellationToken cancelationToken)
             {
                 return 0;
             }
