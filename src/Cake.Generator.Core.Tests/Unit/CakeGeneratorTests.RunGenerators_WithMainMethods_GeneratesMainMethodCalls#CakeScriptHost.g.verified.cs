@@ -47,17 +47,43 @@ public static partial class Program
         public override async Task<CakeReport> RunTargetAsync(string target)
         {
             Settings.SetTarget(target);
-            var report = await Engine.RunTargetAsync(Context, strategy, Settings);
-            reporter.Write(report);
+            var report = await internalRunTargetAsync();
             return report;
         }
 
         public override async Task<CakeReport> RunTargetsAsync(IEnumerable<string> targets)
         {
             Settings.SetTargets(targets);
-            var report = await Engine.RunTargetAsync(Context, strategy, Settings);
-            reporter.Write(report);
+            var report = await internalRunTargetAsync();
             return report;
+        }
+
+        private async Task<CakeReport> internalRunTargetAsync()
+        {
+            try
+            {
+                var report = await Engine
+                                    .RunTargetAsync(Context, strategy, Settings)
+                                    .ConfigureAwait(false);
+
+                if (report != null && !report.IsEmpty)
+                {
+                    reporter.Write(report);
+                }
+
+                ArgumentNullException.ThrowIfNull(report);
+
+                return report;
+            }
+            catch (CakeReportException cre)
+            {
+                if (cre.Report != null && !cre.Report.IsEmpty)
+                {
+                    reporter.Write(cre.Report);
+                }
+
+                throw;
+            }
         }
     }
 
