@@ -27,7 +27,7 @@ Task("Build")
     .Does<BuildConfiguration>(static (context, config) =>
 {
     BuildUtilities.LogInfo($"Building {config.ProjectName} v{config.Version}");
-    DotNetBuild("./src/Example.sln", new DotNetBuildSettings
+    DotNetBuild("./src/Example.slnx", new DotNetBuildSettings
     {
         Configuration = config.Configuration,
     });
@@ -38,7 +38,7 @@ Task("Test")
     .Does<BuildConfiguration>(static (context, config) =>
 {
     BuildUtilities.LogInfo("Running tests...");
-    DotNetTest("./src/Example.sln", new DotNetTestSettings
+    DotNetTest("./src/Example.slnx", new DotNetTestSettings
     {
         Configuration = config.Configuration,
         NoBuild = true,

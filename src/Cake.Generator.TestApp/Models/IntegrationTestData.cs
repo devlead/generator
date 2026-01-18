@@ -32,7 +32,7 @@ public record IntegrationTestData(
     public DirectoryPath CakeTemplateWithExample { get; } = BaseDirectory.Combine("cake.template").Combine("with-example");
     public FilePath CakeTemplateWithExampleCs { get; } = BaseDirectory.Combine("cake.template").Combine("with-example").CombineWithFilePath("cake-with-example.cs");
     public DirectoryPath CakeTemplateWithExampleSrc { get; } = BaseDirectory.Combine("cake.template").Combine("with-example").Combine("src");
-    public FilePath CakeTemplateWithExampleSln { get; } = BaseDirectory.Combine("cake.template").Combine("with-example").Combine("src").CombineWithFilePath("Example.sln");
+    public FilePath CakeTemplateWithExampleSlnx { get; } = BaseDirectory.Combine("cake.template").Combine("with-example").Combine("src").CombineWithFilePath("Example.slnx");
 
     // New multi-file test properties
     public FilePath CakeSdkFilesCs { get; } = BaseDirectory.CombineWithFilePath("cake.sdk.files.cs");
