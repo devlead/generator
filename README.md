@@ -1,10 +1,10 @@
 [![Build](https://github.com/cake-build/generator/actions/workflows/build.yml/badge.svg)](https://github.com/cake-build/generator/actions/workflows/build.yml)
 
-| Package                                       | Latest Release                                                                                                |
-|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| [Cake.Generator](README.md)                   | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Generator) |
-| [Cake.Sdk](src/Cake.Sdk/README.md)            | [![NuGet](https://img.shields.io/nuget/v/Cake.Sdk.svg)](https://www.nuget.org/packages/Cake.Sdk)             |
-| [Cake.Template](src/Cake.Template/README.md)  | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Template)  |
+| Package                                       | Latest Release                                                                                                | Prerelease                                                                                                                                                                                                      |
+|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Cake.Generator](README.md)                   | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Generator)  | [![Azure Artifacts](https://azpkgsshield.azurevoodoo.net/cake-build/Cake/cake/cake.generator)](https://dev.azure.com/cake-build/Cake/_packaging?_a=package&feed=cake&package=Cake.Generator&protocolType=NuGet) |
+| [Cake.Sdk](src/Cake.Sdk/README.md)            | [![NuGet](https://img.shields.io/nuget/v/Cake.Sdk.svg)](https://www.nuget.org/packages/Cake.Sdk)              | [![Azure Artifacts](https://azpkgsshield.azurevoodoo.net/cake-build/Cake/cake/cake.sdk)](https://dev.azure.com/cake-build/Cake/_packaging?_a=package&feed=cake&package=Cake.Sdk&protocolType=NuGet)             |
+| [Cake.Template](src/Cake.Template/README.md)  | [![NuGet](https://img.shields.io/nuget/v/Cake.Generator.svg)](https://www.nuget.org/packages/Cake.Template)   | [![Azure Artifacts](https://azpkgsshield.azurevoodoo.net/cake-build/Cake/cake/cake.template)](https://dev.azure.com/cake-build/Cake/_packaging?_a=package&feed=cake&package=Cake.Template&protocolType=NuGet)   |
 
 # Cake Method / Property Alias Generator
 
