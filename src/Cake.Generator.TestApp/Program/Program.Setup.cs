@@ -4,8 +4,14 @@ public static partial class Program
     {
         InstallTools(
             "dotnet:https://api.nuget.org/v3/index.json?package=GitVersion.Tool&version=5.12.0",
-            "dotnet:https://api.nuget.org/v3/index.json?package=GitReleaseManager.Tool&version=0.20.0",
-            "dotnet:https://api.nuget.org/v3/index.json?package=sign&version=0.9.1-beta.25330.2&prerelease");
+            "dotnet:https://api.nuget.org/v3/index.json?package=GitReleaseManager.Tool&version=0.20.0");
+
+        if (IsRunningOnWindows())
+        {
+            // Sign tool is only available on Windows.
+            InstallTools(
+                "dotnet:https://api.nuget.org/v3/index.json?package=sign&version=0.9.1-beta.26102.1&prerelease");
+        }
 
         var buildDate = DateTime.UtcNow;
         var baseVersion = typeof(ICakeContext).Assembly.GetName().Version?.ToString(2) ?? "1.0";
