@@ -3,6 +3,10 @@
     "Cake.Generator.TestApp": {
       "commandName": "Project",
       "commandLineArgs": "--target=\"Build\" --paths_tools='\"tools\"'"
+    },
+    "Cake.Generator.TestApp.IntegrationTests": {
+      "commandName": "Project",
+      "commandLineArgs": "--target=\"IntegrationTest\" --paths_tools='\"tools\"'"
     }
   }
 }

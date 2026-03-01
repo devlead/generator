@@ -27,8 +27,15 @@ public sealed class CakeGeneratorTests
         var source = CakeGeneratorTestsBase.CommonSources.Program;
         // Add the BuildSystems.Module assembly reference to test module detection
         var buildSystemsModuleLocation = typeof(GitHubActions.Module.GitHubActionsModule).Assembly.Location;
-        var moduleReference = MetadataReference.CreateFromFile(buildSystemsModuleLocation);
-        var compilation = CakeGeneratorTestsBase.CreateCompilation(source, moduleReference);
+        var nuGetModuleLocation = typeof(NuGet.NuGetModule).Assembly.Location;
+        var dotnetToolModuleLocation = typeof(DotNetTool.Module.DotNetToolModule).Assembly.Location;
+        var moduleReferences = new[]
+        {
+            MetadataReference.CreateFromFile(buildSystemsModuleLocation),
+            MetadataReference.CreateFromFile(nuGetModuleLocation),
+            MetadataReference.CreateFromFile(dotnetToolModuleLocation)
+        };
+        var compilation = CakeGeneratorTestsBase.CreateCompilation(source, moduleReferences);
         // When
         var driver = CSharpGeneratorDriver.Create(new CakeGenerator());
         var result = driver.RunGenerators(compilation, cancellationToken);
