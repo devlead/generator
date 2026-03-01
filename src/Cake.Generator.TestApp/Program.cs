@@ -71,8 +71,12 @@ Task("IntegrationTest-Execute")
 Task("IntegrationTest-IoC")
     .Does<BuildData>(IntegrationTestIoC);
 
+Task("IntegrationTest-Tool")
+    .Does<BuildData>(IntegrationTestTool);
+
 Task("IntegrationTest")
     .IsDependentOn("IntegrationTest-IoC")
+    .IsDependentOn("IntegrationTest-Tool")
     .IsDependentOn("IntegrationTest-Execute");
 
 TaskOf<BuildData>("Auth-NuGet-Feeds")

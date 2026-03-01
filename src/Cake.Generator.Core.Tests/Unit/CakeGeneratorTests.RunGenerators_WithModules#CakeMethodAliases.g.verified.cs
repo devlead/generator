@@ -986,6 +986,168 @@ public static partial class Program
         public static global::System.IDisposable DiagnosticVerbosity()
             => global::Cake.Common.Diagnostics.LoggingAliases.DiagnosticVerbosity(Context);
 
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.WithVerbosity(Cake.Core.ICakeContext,Cake.Core.Diagnostics.Verbosity)">
+        /// <summary>
+        /// Sets the log verbosity as specified and returns a disposable that restores the log verbosity on dispose.
+        /// </summary>
+        /// <param name="verbosity">The verbosity.</param>
+        /// <returns>A disposable that restores the log verbosity.</returns>
+        /// <example>
+        /// <code>
+        /// using (DiagnosticVerbosity())
+        /// {
+        /// Error("Show me.");
+        /// Warning("Show me.");
+        /// Information("Show me.");
+        /// Verbose("Show me.");
+        /// Debug("Show me.");
+        /// }
+        /// </code>
+        /// </example>
+        /// </member>
+        public static global::System.IDisposable WithVerbosity(global::Cake.Core.Diagnostics.Verbosity verbosity)
+            => global::Cake.Common.Diagnostics.LoggingAliases.WithVerbosity(Context, verbosity);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Error(Cake.Core.ICakeContext,System.FormattableString)">
+        /// <summary>
+        /// Writes an error message to the log using the specified format information.
+        /// </summary>
+        /// <param name="formattable">The string to be formatted.</param>
+        /// <example>
+        /// <code>
+        /// Error($"Hello {"World"}! Today is an {DateTime.Now:dddd}");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Error(global::System.FormattableString formattable)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Error(Context, formattable);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Warning(Cake.Core.ICakeContext,System.FormattableString)">
+        /// <summary>
+        /// Writes an warning message to the log using the specified format information.
+        /// </summary>
+        /// <param name="formattable">The string to be formatted.</param>
+        /// <example>
+        /// <code>
+        /// Warning($"Hello {"World"}! Today is an {DateTime.Now:dddd}");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Warning(global::System.FormattableString formattable)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Warning(Context, formattable);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Information(Cake.Core.ICakeContext,System.FormattableString)">
+        /// <summary>
+        /// Writes an informational message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattable">The string to be formatted.</param>
+        /// <example>
+        /// <code>
+        /// Information($"Hello {"World"}! Today is an {DateTime.Now:dddd}");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Information(global::System.FormattableString formattable)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Information(Context, formattable);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Verbose(Cake.Core.ICakeContext,System.FormattableString)">
+        /// <summary>
+        /// Writes an verbose message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattable">The string to be formatted.</param>
+        /// <example>
+        /// <code>
+        /// Verbose($"Hello {"World"}! Today is an {DateTime.Now:dddd}");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Verbose(global::System.FormattableString formattable)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Verbose(Context, formattable);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Debug(Cake.Core.ICakeContext,System.FormattableString)">
+        /// <summary>
+        /// Writes an debug message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattable">The string to be formatted.</param>
+        /// <example>
+        /// <code>
+        /// Debug($"Hello {"World"}! Today is an {DateTime.Now:dddd}");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Debug(global::System.FormattableString formattable)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Debug(Context, formattable);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Error(Cake.Core.ICakeContext,Cake.Core.Diagnostics.FormattableLogAction)">
+        /// <summary>
+        /// Writes an error message to the log using the specified format information.
+        /// </summary>
+        /// <param name="formattableLogAction">The log action.</param>
+        /// <example>
+        /// <code>
+        /// Error(logAction =&gt; logAction($"Hello {"World"}! Today is an {DateTime.Now:dddd}"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Error(global::Cake.Core.Diagnostics.FormattableLogAction formattableLogAction)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Error(Context, formattableLogAction);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Warning(Cake.Core.ICakeContext,Cake.Core.Diagnostics.FormattableLogAction)">
+        /// <summary>
+        /// Writes an warning message to the log using the specified format information.
+        /// </summary>
+        /// <param name="formattableLogAction">The log action.</param>
+        /// <example>
+        /// <code>
+        /// Warning(logAction =&gt; logAction($"Hello {"World"}! Today is an {DateTime.Now:dddd}"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Warning(global::Cake.Core.Diagnostics.FormattableLogAction formattableLogAction)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Warning(Context, formattableLogAction);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Information(Cake.Core.ICakeContext,Cake.Core.Diagnostics.FormattableLogAction)">
+        /// <summary>
+        /// Writes an informational message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattableLogAction">The log action.</param>
+        /// <example>
+        /// <code>
+        /// Information(logAction =&gt; logAction($"Hello {"World"}! Today is an {DateTime.Now:dddd}"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Information(global::Cake.Core.Diagnostics.FormattableLogAction formattableLogAction)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Information(Context, formattableLogAction);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Verbose(Cake.Core.ICakeContext,Cake.Core.Diagnostics.FormattableLogAction)">
+        /// <summary>
+        /// Writes an verbose message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattableLogAction">The log action.</param>
+        /// <example>
+        /// <code>
+        /// Verbose(logAction =&gt; logAction($"Hello {"World"}! Today is an {DateTime.Now:dddd}"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Verbose(global::Cake.Core.Diagnostics.FormattableLogAction formattableLogAction)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Verbose(Context, formattableLogAction);
+
+        /// <member name="M:Cake.Common.Diagnostics.LoggingAliases.Debug(Cake.Core.ICakeContext,Cake.Core.Diagnostics.FormattableLogAction)">
+        /// <summary>
+        /// Writes an debug message to the log using the specified formattable string.
+        /// </summary>
+        /// <param name="formattableLogAction">The log action.</param>
+        /// <example>
+        /// <code>
+        /// Debug(logAction =&gt; logAction($"Hello {"World"}! Today is an {DateTime.Now:dddd}"));
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void Debug(global::Cake.Core.Diagnostics.FormattableLogAction formattableLogAction)
+            => global::Cake.Common.Diagnostics.LoggingAliases.Debug(Context, formattableLogAction);
+
         /// <member name="M:Cake.Common.Diagnostics.ScriptCallerAliases.GetCallerInfo(Cake.Core.ICakeContext,System.String,System.String,System.Int32)">
         /// <summary>
         /// Performs script caller information.

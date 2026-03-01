@@ -19,6 +19,12 @@ public static partial class Program
             // Register GitHubActionsModule
             new global::Cake.GitHubActions.Module.GitHubActionsModule().Register(adapter);
 
+            // Register NuGetModule
+            new global::Cake.NuGet.NuGetModule().Register(adapter);
+
+            // Register DotNetToolModule
+            new global::Cake.DotNetTool.Module.DotNetToolModule().Register(adapter);
+
             // Transfer all registered services to the IoC container
             adapter.Transfer(services);
         }
