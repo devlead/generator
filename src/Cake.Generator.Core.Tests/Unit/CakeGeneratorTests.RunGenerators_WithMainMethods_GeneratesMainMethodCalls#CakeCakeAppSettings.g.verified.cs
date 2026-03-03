@@ -42,4 +42,8 @@ internal sealed class CakeAppSettings : Spectre.Console.Cli.CommandSettings
     [CommandOption("--info")]
     [Description("Displays additional information about Cake.")]
     public bool Info { get; set; }
+
+    [CommandOption("--no-report")]
+    [Description("Prevent the display of the summary report at the end of Cake Execution.")]
+    public bool NoReport { get; set; }
 }
