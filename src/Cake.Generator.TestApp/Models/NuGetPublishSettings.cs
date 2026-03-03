@@ -16,13 +16,12 @@ public class NuGetPublishSettings(
                             ApiKey: environment.GetEnvironmentVariable("NUGET_API_KEY"),
                             Source: environment.GetEnvironmentVariable("NUGET_API_URL")),
                         new(
-                            Name: "AzureDevOps",
+                            Name: "cake",
                             OnlyTagged: false,
                             ApiKey: "AzureDevOps",
                             UserName: "AzureDevOps",
                             Password: environment.GetEnvironmentVariable("AZURE_DEVOPS_NUGET_API_KEY"),
-                            Source: environment.GetEnvironmentVariable("AZURE_DEVOPS_NUGET_API_URL"),
-                            OnlyPush: true)
+                            Source: environment.GetEnvironmentVariable("AZURE_DEVOPS_NUGET_API_URL"))
                 }
                 .Where(x => x.OnlyTagged == isTagged
                             || !x.OnlyTagged)
