@@ -14,18 +14,18 @@ public static partial class Program
         }
 
         var buildDate = DateTime.UtcNow;
-        var baseVersion = typeof(ICakeContext).Assembly.GetName().Version?.ToString(2) ?? "1.0";
+        var baseVersion = typeof(ICakeContext).Assembly.GetName().Version?.ToString(3) ?? "1.0.0";
 
-        var branchName = GitVersion(new GitVersionSettings { }).BranchName;
+        var assertedVersions = GitVersion(new GitVersionSettings
+            {
+                OutputType = GitVersionOutput.Json
+            });
+        var branchName = assertedVersions.BranchName;
         var isMain = StringComparer.OrdinalIgnoreCase.Equals("main", branchName);
         var isDevelopment = StringComparer.OrdinalIgnoreCase.Equals("develop", branchName);
         var isPullRequest = GitHubActions.IsRunningOnGitHubActions && GitHubActions.Environment.PullRequest.IsPullRequest;
         var isFork = GitHubActions.IsRunningOnGitHubActions && !StringComparer.OrdinalIgnoreCase.Equals("cake-build", GitHubActions.Environment.Workflow.RepositoryOwner);
         var isTagged = GitHubActions.IsRunningOnGitHubActions && GitHubActions.Environment.Workflow.RefType == GitHubActionsRefType.Tag;
-
-        var runNumber = GitHubActions.IsRunningOnGitHubActions
-                    ? GitHubActions.Environment.Workflow.RunNumber
-                    : (short)((buildDate - buildDate.Date).TotalSeconds / 3);
 
         var suffix = GitHubActions.IsRunningOnGitHubActions
                     ? (isMain ? string.Empty : "alpha")
@@ -36,20 +36,10 @@ public static partial class Program
                             ? semVersion.VersionString
                             : throw new CakeException($"Failed to parse tagged ref name: {GitHubActions.Environment.Workflow.RefName}"))
                         : FormattableString
-                                    .Invariant($"{baseVersion}.{buildDate:yy}{buildDate.DayOfYear:000}.{runNumber}-{suffix}")
+                                    .Invariant($"{baseVersion}-{suffix}{assertedVersions.PreReleaseNumber:D4}")
                                     .TrimEnd('-');
 
         var sdkVersion = ReadSdkVersionFromGlobalJson();
-
-        Information(
-            "Branch: {0} (Main: {1}, Development: {2}, Pull Request: {3}, Fork: {4}), Version: {5} (SDK: {6})",
-            branchName,
-            isMain,
-            isDevelopment,
-            isPullRequest,
-            isFork,
-            version,
-            sdkVersion);
 
         var msBuildSettings = new DotNetMSBuildSettings()
                 .SetConfiguration("IntegrationTest")
@@ -62,40 +52,65 @@ public static partial class Program
         {
             msBuildSettings.WithProperty("TemplateVersion", version);
         }
-
-        var buildData = new BuildData(
-            Version: version,
-            BranchName: branchName,
-            IsPullRequest: isPullRequest,
-            IsMainBranch: isMain,
-            IsDevelopmentBranch: isDevelopment,
-            IsFork: isFork,
-            IsTagged: isTagged,
-            IsRunningOnGitHubActions: GitHubActions.IsRunningOnGitHubActions,
-            IsRunningOnWindows: IsRunningOnWindows(),
-            ArtifactsDirectory: MakeAbsolute(Directory("artifacts")),
-            SolutionPath: GetFiles("./src/Cake.Generator.slnx").FirstOrDefault() ?? throw new CakeException("Failed to find solution"),
-            MSBuildSettings: msBuildSettings,
-            NuGetPublishSettings: new NuGetPublishSettings(
-                                    isMain,
-                                    isTagged,
-                                    Context.Environment),
-            CodeSigningCredentials: CodeSigningCredentials.GetCodeSigningCredentials(context));
-
-        if (buildData.ShouldSignPackages)
+        bool? shouldSignPackages = null;
+        try
         {
-            Information("Code signing is enabled for this build.");
-            if (!buildData.CodeSigningCredentials.HasCredentials)
+            var buildData = new BuildData(
+                Version: version,
+                BranchName: branchName,
+                IsPullRequest: isPullRequest,
+                IsMainBranch: isMain,
+                IsDevelopmentBranch: isDevelopment,
+                IsFork: isFork,
+                IsTagged: isTagged,
+                IsRunningOnGitHubActions: GitHubActions.IsRunningOnGitHubActions,
+                IsRunningOnWindows: IsRunningOnWindows(),
+                ArtifactsDirectory: MakeAbsolute(Directory("artifacts")),
+                SolutionPath: GetFiles("./src/Cake.Generator.slnx").FirstOrDefault() ?? throw new CakeException("Failed to find solution"),
+                MSBuildSettings: msBuildSettings,
+                NuGetPublishSettings: new NuGetPublishSettings(
+                                        isMain,
+                                        isTagged,
+                                        Context.Environment),
+                CodeSigningCredentials: CodeSigningCredentials.GetCodeSigningCredentials(context));
+
+            shouldSignPackages = buildData.ShouldSignPackages;
+
+            if (buildData.ShouldSignPackages)
             {
-                throw new CakeException("Code signing credentials are not set. Please set the environment variables for code signing.");
+                Information("Code signing is enabled for this build.");
+                if (!buildData.CodeSigningCredentials.HasCredentials)
+                {
+                    throw new CakeException("Code signing credentials are not set. Please set the environment variables for code signing.");
+                }
             }
-        }
-        else
-        {
-            Information("Code signing is disabled for this build.");
-        }
 
-        return buildData;
+            return buildData;
+        }
+        finally
+        {
+            /// <summary>Returns Spectre.Console markup for a boolean (green ✓ or red ✗).</summary>
+            static string ToCheckmark(bool? value) => value.HasValue ? (value.Value ? "[green]✓[/]" : "[red]✗[/]") : "[yellow]?[/]";
+
+            AnsiConsole.Write(
+                new Table()
+                    .RoundedBorder()
+                    .HideHeaders()
+                    .ShowRowSeparators()
+                    .AddColumn("Property")
+                    .AddColumn("Value")
+                    .AddRow("Build Date", buildDate.ToString("yyyy-MM-dd HH:mm:ss UTC"))
+                    .AddRow("Build System", BuildSystem.Provider.ToString("F"))
+                    .AddRow("Branch", branchName)
+                    .AddRow("Main", ToCheckmark(isMain))
+                    .AddRow("Development", ToCheckmark(isDevelopment))
+                    .AddRow("Pull Request", ToCheckmark(isPullRequest))
+                    .AddRow("Fork", ToCheckmark(isFork))
+                    .AddRow("Tagged", ToCheckmark(isTagged))
+                    .AddRow("Version", version)
+                    .AddRow("SDK", sdkVersion)
+                    .AddRow("Should Sign Packages", ToCheckmark(shouldSignPackages)));
+        }
     }
 
     private static string ReadSdkVersionFromGlobalJson()
