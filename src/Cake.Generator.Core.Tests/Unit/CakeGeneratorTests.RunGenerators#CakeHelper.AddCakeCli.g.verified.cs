@@ -46,7 +46,7 @@ public static partial class Program
             services.AddSingleton(interceptor.CakeAppSettings);
             services.AddSingleton<Spectre.Console.Cli.CommandSettings>(provider => provider.GetRequiredService<CakeAppSettings>());
             
-            var arguments = global::Cake.Cli.Infrastructure.IRemainingArgumentsExtensions.ToCakeArguments(ToUnQuotedRemainingArguments(interceptor.Context.Remaining), interceptor.CakeAppSettings.Targets);
+            var arguments = global::Cake.Cli.Infrastructure.IRemainingArgumentsExtensions.ToCakeArguments(ToUnQuotedRemainingArguments(interceptor.Context.Remaining), interceptor.CakeAppSettings.NoReport, interceptor.CakeAppSettings.Targets);
             services.AddSingleton(arguments);
             services.AddSingleton<ICakeArguments>(arguments);
 

@@ -40,7 +40,7 @@ public static partial class Program
         }
     }
 
-    private class GeneratorScriptHost(ICakeEngine engine, ICakeContext context, IExecutionStrategy strategy, ICakeReportPrinter reporter)
+    private class GeneratorScriptHost(ICakeEngine engine, ICakeContext context, IExecutionStrategy strategy, ICakeConfiguration configuration, ICakeReportPrinter reporter)
         : ScriptHost(engine, context)
     {
 
@@ -60,13 +60,15 @@ public static partial class Program
 
         private async Task<CakeReport> internalRunTargetAsync()
         {
+            bool noReportEnabled = false;
             try
             {
+                noReportEnabled = bool.TrueString.Equals(configuration.GetValue("Settings_NoReport") ?? bool.FalseString, StringComparison.OrdinalIgnoreCase);
                 var report = await Engine
                                     .RunTargetAsync(Context, strategy, Settings)
                                     .ConfigureAwait(false);
 
-                if (report != null && !report.IsEmpty)
+                if (report != null && !report.IsEmpty && !noReportEnabled)
                 {
                     reporter.Write(report);
                 }
@@ -77,7 +79,7 @@ public static partial class Program
             }
             catch (CakeReportException cre)
             {
-                if (cre.Report != null && !cre.Report.IsEmpty)
+                if (cre.Report != null && !cre.Report.IsEmpty && !noReportEnabled)
                 {
                     reporter.Write(cre.Report);
                 }
