@@ -5025,6 +5025,25 @@ public static partial class Program
         public static void DotNetRemovePackage(string packageName, string project)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName, project);
 
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Cake.Core.ICakeContext,System.String,System.String,Cake.Common.Tools.DotNet.Package.Remove.DotNetPackageRemoveSettings)">
+        /// <summary>
+        /// Removes package reference from a project file.
+        /// </summary>
+        /// <param name="packageName">The package reference to remove.</param>
+        /// <param name="project">The target project file path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetRemovePackage(
+        /// "Cake.FileHelper",
+        /// "ToDo.csproj",
+        /// new DotNetPackageRemoveSettings { WorkingDirectory = "./src" });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetRemovePackage(string packageName, string project, global::Cake.Common.Tools.DotNet.Package.Remove.DotNetPackageRemoveSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetRemovePackage(Context, packageName, project, settings);
+
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetSearchPackage(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Package.Search.DotNetPackageSearchSettings)">
         /// <summary>
         /// List packages on available from source using specified settings.
