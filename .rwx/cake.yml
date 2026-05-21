@@ -1,0 +1,71 @@
+on:
+  github:
+    pull_request:
+      init:
+        commit-sha: ${{ event.git.sha }}
+    push:
+      - if: ${{ event.git.branch == 'develop' || event.git.branch == 'main' || starts-with(event.git.branch, 'hotfix/') }}
+        init:
+          commit-sha: ${{ event.git.sha }}
+  cli:
+    init:
+      commit-sha: ${{ event.git.sha }}
+
+base:
+  image: ubuntu:26.04
+  config: rwx/base 1.1.1
+
+tasks:
+  - key: code
+    call: git/clone 2.0.7
+    with:
+      repository: https://github.com/cake-build/generator.git
+      ref: ${{ init.commit-sha }}
+      fetch-full-depth: true
+      preserve-git-dir: true
+
+  - key: install-dotnet-dependencies
+    run: |
+      # Update packages
+      sudo apt-get update
+
+      # Install .NET dependencies
+      sudo apt-get install -y --no-install-recommends \
+        ca-certificates \
+        libbrotli1 \
+        libc6 \
+        libgcc-s1 \
+        libgssapi-krb5-2 \
+        libicu78 \
+        libssl3t64 \
+        libstdc++6 \
+        tzdata \
+        zlib1g
+
+  - key: install-dotnet-sdk
+    use: [install-dotnet-dependencies, code]
+    run: |
+      # Install .NET SDKs
+      curl -fsSL -o dotnet-install.sh https://dot.net/v1/dotnet-install.sh
+      chmod +x ./dotnet-install.sh
+      ./dotnet-install.sh --jsonfile ./global.json --no-path
+      ./dotnet-install.sh --channel 8.0 --skip-non-versioned-files --no-path
+      ./dotnet-install.sh --channel 9.0 --skip-non-versioned-files --no-path
+
+      export DOTNET_ROOT="$HOME/.dotnet"
+      export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+      echo "$DOTNET_ROOT" > "$RWX_ENV/DOTNET_ROOT"
+      echo "$PATH" > "$RWX_ENV/PATH"
+
+      # List installed SDKs
+      dotnet --list-sdks
+
+  - key: build
+    use: [code, install-dotnet-sdk]
+    run: |
+      # We clone at a commit SHA, so HEAD is detached; GitVersion needs a named branch ref.
+      # Use plumbing commands so the working tree (including any patched files) is untouched.
+      git branch -f develop HEAD
+      git symbolic-ref HEAD refs/heads/develop
+
+      dotnet run --project ./src/Cake.Generator.TestApp/Cake.Generator.TestApp.csproj -- --target=IntegrationTest

@@ -1,4 +1,5 @@
-[![Build](https://github.com/cake-build/generator/actions/workflows/build.yml/badge.svg)](https://github.com/cake-build/generator/actions/workflows/build.yml)
+[![Build](https://github.com/cake-build/generator/actions/workflows/build.yml/badge.svg)](https://github.com/cake-build/generator/actions/workflows/build.yml) &nbsp; 
+[![build](https://cloud.rwx.com/status_badges/cake.svg?branch=develop&definition=.%5C.rwx%5Ccake.yml&repo=generator)](https://cloud.rwx.com/runs/latest/cake?branch=develop&definition=.%5C.rwx%5Ccake.yml&repo=generator)
 
 | Package                                       | Latest Release                                                                                                | Prerelease                                                                                                                                                                                                      |
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
