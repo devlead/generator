@@ -1,3 +1,4 @@
+#!/usr/bin/env dotnet
 #:sdk Cake.Sdk@CakeSdkVersion
 #:property IncludeAdditionalFiles=build/**/*.cs
 #:property ExcludeAdditionalFiles=build/**/Except*.cs

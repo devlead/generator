@@ -103,6 +103,7 @@ public record IntegrationTestData(
 
     public string CakeCsCode =>
         $$"""
+        #!/usr/bin/env dotnet
         #:package Cake.Generator@{{Version}}
         #:package {{XunitAssertPackage}}
         {{BaseCode}}
@@ -110,6 +111,7 @@ public record IntegrationTestData(
 
     public string CakeSdkCsCode =>
         $$"""
+        #!/usr/bin/env dotnet
         #:sdk Cake.Sdk
         #:package {{XunitAssertPackage}}
         {{BaseCode}}
@@ -138,6 +140,7 @@ public record IntegrationTestData(
 
     public string CakeSdkFilesCsCode =>
         $$"""
+        #!/usr/bin/env dotnet
         #:sdk Cake.Sdk
         #:property IncludeAdditionalFiles=cake.sdk.files/**/*.cs
         #:property ExcludeAdditionalFiles=cake.sdk.files/**/Excluded.cs

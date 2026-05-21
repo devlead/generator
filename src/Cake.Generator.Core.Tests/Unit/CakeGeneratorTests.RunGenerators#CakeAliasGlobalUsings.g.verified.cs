@@ -24,6 +24,8 @@ global using global::Cake.Common.Build.GoCD.Data;
 global using global::Cake.Common.Build.Jenkins;
 global using global::Cake.Common.Build.Jenkins.Data;
 global using global::Cake.Common.Build.MyGet;
+global using global::Cake.Common.Build.Rwx;
+global using global::Cake.Common.Build.Rwx.Data;
 global using global::Cake.Common.Build.TeamCity;
 global using global::Cake.Common.Build.TravisCI;
 global using global::Cake.Common.Build.TravisCI.Data;
