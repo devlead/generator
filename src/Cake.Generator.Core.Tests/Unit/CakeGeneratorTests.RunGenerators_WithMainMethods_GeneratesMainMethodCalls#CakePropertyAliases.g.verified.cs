@@ -20,6 +20,7 @@ public static partial class Program
         private static global::Cake.Common.Build.GitHubActions.IGitHubActionsProvider? _GitHubActions;
         private static global::Cake.Common.Build.AzurePipelines.IAzurePipelinesProvider? _AzurePipelines;
         private static global::Cake.Common.Build.WoodpeckerCI.IWoodpeckerCIProvider? _WoodpeckerCI;
+        private static global::Cake.Common.Build.Rwx.IRwxProvider? _Rwx;
 
         /// <member name="M:Cake.Common.Build.BuildSystemAliases.BuildSystem(Cake.Core.ICakeContext)">
         /// <summary>
@@ -245,6 +246,21 @@ public static partial class Program
         /// </member>
         public static global::Cake.Common.Build.WoodpeckerCI.IWoodpeckerCIProvider WoodpeckerCI
             => _WoodpeckerCI ??= global::Cake.Common.Build.BuildSystemAliases.WoodpeckerCI(Context);
+
+        /// <member name="M:Cake.Common.Build.BuildSystemAliases.Rwx(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Gets an <see cref="T:Cake.Common.Build.Rwx.RwxProvider" /> instance that can be used to
+        /// obtain information from the RWX environment.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var isRwxBuild = Rwx.IsRunningOnRwx;
+        /// </code>
+        /// </example>
+        /// <returns>A <see cref="N:Cake.Common.Build.Rwx" /> instance.</returns>
+        /// </member>
+        public static global::Cake.Common.Build.Rwx.IRwxProvider Rwx
+            => _Rwx ??= global::Cake.Common.Build.BuildSystemAliases.Rwx(Context);
 
     }
 

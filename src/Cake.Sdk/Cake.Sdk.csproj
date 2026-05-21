@@ -44,7 +44,6 @@
     <LangVersion>latest</LangVersion>
     <PublishAot>false</PublishAot>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
-    <NoWarn>__NoWarn__;CA2266</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -67,7 +66,7 @@
           <!-- Replace placeholders with actual values and MSBuild properties -->
       <PropertyGroup>
         <DollarSign>$</DollarSign>
-        <SdkPropsContentWithVersion>$([System.String]::Copy('$(SdkPropsContent)').Replace('__VERSION__', '$(Version)').Replace('__IncludeAdditionalFiles__', '$(DollarSign)(IncludeAdditionalFiles)').Replace('__ExcludeAdditionalFiles__', '$(DollarSign)(ExcludeAdditionalFiles)').Replace('__MSBuildThisFileDirectory__', '$(DollarSign)(MSBuildThisFileDirectory)').Replace('__NoWarn__', '$(NoWarn)'))</SdkPropsContentWithVersion>
+        <SdkPropsContentWithVersion>$([System.String]::Copy('$(SdkPropsContent)').Replace('__VERSION__', '$(Version)').Replace('__IncludeAdditionalFiles__', '$(DollarSign)(IncludeAdditionalFiles)').Replace('__ExcludeAdditionalFiles__', '$(DollarSign)(ExcludeAdditionalFiles)').Replace('__MSBuildThisFileDirectory__', '$(DollarSign)(MSBuildThisFileDirectory)'))</SdkPropsContentWithVersion>
       </PropertyGroup>
     
     <!-- Ensure directories exist -->

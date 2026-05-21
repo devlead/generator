@@ -1,3 +1,4 @@
+#!/usr/bin/env dotnet
 #:sdk Cake.Sdk@CakeSdkVersion
 
 var target = Argument("target", "Test");
