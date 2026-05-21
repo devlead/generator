@@ -24,44 +24,17 @@ tasks:
       fetch-full-depth: true
       preserve-git-dir: true
 
-  - key: install-dotnet-dependencies
-    run: |
-      # Update packages
-      sudo apt-get update
-
-      # Install .NET dependencies
-      sudo apt-get install -y --no-install-recommends \
-        ca-certificates \
-        libbrotli1 \
-        libc6 \
-        libgcc-s1 \
-        libgssapi-krb5-2 \
-        libicu78 \
-        libssl3t64 \
-        libstdc++6 \
-        tzdata \
-        zlib1g
-
-  - key: install-dotnet-sdk
-    use: [install-dotnet-dependencies, code]
-    run: |
-      # Install .NET SDKs
-      curl -fsSL -o dotnet-install.sh https://dot.net/v1/dotnet-install.sh
-      chmod +x ./dotnet-install.sh
-      ./dotnet-install.sh --jsonfile ./global.json --no-path
-      ./dotnet-install.sh --channel 8.0 --skip-non-versioned-files --no-path
-      ./dotnet-install.sh --channel 9.0 --skip-non-versioned-files --no-path
-
-      export DOTNET_ROOT="$HOME/.dotnet"
-      export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
-      echo "$DOTNET_ROOT" > "$RWX_ENV/DOTNET_ROOT"
-      echo "$PATH" > "$RWX_ENV/PATH"
-
-      # List installed SDKs
-      dotnet --list-sdks
+  - key: install-dotnet
+    use: code
+    call: dotnet/install 1.0.0
+    with:
+      dotnet-channels: '["8.0", "9.0"]'
+      global-json-file: global.json
+    filter:
+      - global.json
 
   - key: build
-    use: [code, install-dotnet-sdk]
+    use: [code, install-dotnet]
     run: |
       # We clone at a commit SHA, so HEAD is detached; GitVersion needs a named branch ref.
       # Use plumbing commands so the working tree (including any patched files) is untouched.
