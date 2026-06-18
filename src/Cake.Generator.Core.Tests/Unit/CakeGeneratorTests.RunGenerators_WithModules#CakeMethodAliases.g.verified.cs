@@ -6041,6 +6041,381 @@ public static partial class Program
         public static void DotNetTool(global::Cake.Core.IO.FilePath projectPath, string command, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Tool.DotNetToolSettings settings)
             => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetTool(Context, projectPath, command, arguments, settings);
 
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Executes a .NET tool package with <c>dotnet tool exec</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-exec">dotnet tool exec</see>.</remarks>
+        /// <param name="packageId">The package ID to execute. Use the <c>package@version</c> syntax to request a specific version.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolExecute("DPI");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolExecute(string packageId)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Context, packageId);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-exec">dotnet tool exec</see>.</remarks>
+        /// <param name="packageId">The package ID to execute. Use the <c>package@version</c> syntax to request a specific version.</param>
+        /// <param name="arguments">The arguments forwarded to the tool.</param>
+        /// <example>
+        /// <code>
+        /// var arguments = new ProcessArgumentBuilder().Append("--version");
+        /// DotNetToolExecute("DPI", arguments);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolExecute(string packageId, global::Cake.Core.IO.ProcessArgumentBuilder arguments)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Context, packageId, arguments);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder,Cake.Common.Tools.DotNet.Tool.DotNetToolExecuteSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-exec">dotnet tool exec</see>.</remarks>
+        /// <param name="packageId">The package ID to execute. Use the <c>package@version</c> syntax to request a specific version.</param>
+        /// <param name="arguments">The arguments forwarded to the tool.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// var arguments = new ProcessArgumentBuilder().Append("--version");
+        /// DotNetToolExecute("DPI", arguments, new DotNetToolExecuteSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolExecute(string packageId, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Tool.DotNetToolExecuteSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Context, packageId, arguments, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolExecuteSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-exec">dotnet tool exec</see>.</remarks>
+        /// <param name="packageId">The package ID to execute. Use the <c>package@version</c> syntax to request a specific version.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolExecute("DPI", new DotNetToolExecuteSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolExecute(string packageId, global::Cake.Common.Tools.DotNet.Tool.DotNetToolExecuteSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolExecute(Context, packageId, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolInstall(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Installs a .NET tool package with <c>dotnet tool install</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install">dotnet tool install</see>.</remarks>
+        /// <param name="packageId">The package ID to install.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolInstall("dotnetsay");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolInstall(string packageId)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolInstall(Context, packageId);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolInstall(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolInstallSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolInstall(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install">dotnet tool install</see>.</remarks>
+        /// <param name="packageId">The package ID to install.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolInstall("DPI", new DotNetToolInstallSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolInstall(string packageId, global::Cake.Common.Tools.DotNet.Tool.DotNetToolInstallSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolInstall(Context, packageId, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Lists .NET tools with <c>dotnet tool list</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-list">dotnet tool list</see>.</remarks>
+        /// <example>
+        /// <code>
+        /// DotNetToolList();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolList()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Tool.DotNetToolListSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-list">dotnet tool list</see>.</remarks>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolList(new DotNetToolListSettings
+        /// {
+        /// InstallationScope = DotNetToolInstallationScope.Local,
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolList(global::Cake.Common.Tools.DotNet.Tool.DotNetToolListSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Lists a .NET tool package with <c>dotnet tool list</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-list">dotnet tool list</see>.</remarks>
+        /// <param name="packageId">The package ID to list.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolList("dotnetsay");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolList(string packageId)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Context, packageId);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolListSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-list">dotnet tool list</see>.</remarks>
+        /// <param name="packageId">The package ID to list.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolList("DPI", new DotNetToolListSettings
+        /// {
+        /// InstallationScope = DotNetToolInstallationScope.Local,
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolList(string packageId, global::Cake.Common.Tools.DotNet.Tool.DotNetToolListSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolList(Context, packageId, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRestore(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Restores .NET tools with <c>dotnet tool restore</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-restore">dotnet tool restore</see>.</remarks>
+        /// <example>
+        /// <code>
+        /// DotNetToolRestore();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRestore()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRestore(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRestore(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Tool.DotNetToolRestoreSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRestore(Cake.Core.ICakeContext)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-restore">dotnet tool restore</see>.</remarks>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolRestore(new DotNetToolRestoreSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRestore(global::Cake.Common.Tools.DotNet.Tool.DotNetToolRestoreSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRestore(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Runs a local .NET tool with <c>dotnet tool run</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-run">dotnet tool run</see>.</remarks>
+        /// <param name="commandName">The tool command name to run.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolRun("dotnetsay");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRun(string commandName)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Context, commandName);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-run">dotnet tool run</see>.</remarks>
+        /// <param name="commandName">The tool command name to run.</param>
+        /// <param name="arguments">The arguments forwarded to the tool.</param>
+        /// <example>
+        /// <code>
+        /// var arguments = new ProcessArgumentBuilder().Append("--version");
+        /// DotNetToolRun("DPI", arguments);
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRun(string commandName, global::Cake.Core.IO.ProcessArgumentBuilder arguments)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Context, commandName, arguments);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String,Cake.Core.IO.ProcessArgumentBuilder,Cake.Common.Tools.DotNet.Tool.DotNetToolRunSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-run">dotnet tool run</see>.</remarks>
+        /// <param name="commandName">The tool command name to run.</param>
+        /// <param name="arguments">The arguments forwarded to the tool.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolRun("DPI", "--version", new DotNetToolRunSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRun(string commandName, global::Cake.Core.IO.ProcessArgumentBuilder arguments, global::Cake.Common.Tools.DotNet.Tool.DotNetToolRunSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Context, commandName, arguments, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolRunSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-run">dotnet tool run</see>.</remarks>
+        /// <param name="commandName">The tool command name to run.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolRun("DPI", new DotNetToolRunSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolRun(string commandName, global::Cake.Common.Tools.DotNet.Tool.DotNetToolRunSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolRun(Context, commandName, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolSearch(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Searches for .NET tool packages with <c>dotnet tool search</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-search">dotnet tool search</see>.</remarks>
+        /// <param name="searchTerm">The search term.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolSearch("cake");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolSearch(string searchTerm)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolSearch(Context, searchTerm);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolSearch(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolSearchSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolSearch(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-search">dotnet tool search</see>.</remarks>
+        /// <param name="searchTerm">The search term.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolSearch("DPI", new DotNetToolSearchSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolSearch(string searchTerm, global::Cake.Common.Tools.DotNet.Tool.DotNetToolSearchSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolSearch(Context, searchTerm, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUninstall(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Uninstalls a .NET tool package with <c>dotnet tool uninstall</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-uninstall">dotnet tool uninstall</see>.</remarks>
+        /// <param name="packageId">The package ID to uninstall.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolUninstall("dotnetsay");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolUninstall(string packageId)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUninstall(Context, packageId);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUninstall(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolUninstallSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUninstall(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-uninstall">dotnet tool uninstall</see>.</remarks>
+        /// <param name="packageId">The package ID to uninstall.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolUninstall("DPI", new DotNetToolUninstallSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolUninstall(string packageId, global::Cake.Common.Tools.DotNet.Tool.DotNetToolUninstallSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUninstall(Context, packageId, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext)">
+        /// <summary>
+        /// Updates .NET tool packages with <c>dotnet tool update</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-update">dotnet tool update</see>.</remarks>
+        /// <example>
+        /// <code>
+        /// DotNetToolUpdate();
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolUpdate()
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Context);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext,Cake.Common.Tools.DotNet.Tool.DotNetToolUpdateSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-update">dotnet tool update</see>.</remarks>
+        /// <param name="settings">The settings.</param>
+        /// </member>
+        public static void DotNetToolUpdate(global::Cake.Common.Tools.DotNet.Tool.DotNetToolUpdateSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Context, settings);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext,System.String)">
+        /// <summary>
+        /// Updates a .NET tool package with <c>dotnet tool update</c>.
+        /// </summary>
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-update">dotnet tool update</see>.</remarks>
+        /// <param name="packageId">The package ID to update.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolUpdate("dotnetsay");
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolUpdate(string packageId)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Context, packageId);
+
+        /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext,System.String,Cake.Common.Tools.DotNet.Tool.DotNetToolUpdateSettings)">
+        /// <inheritdoc cref="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Cake.Core.ICakeContext,System.String)" />
+        /// <remarks>For more information, see <see href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-update">dotnet tool update</see>.</remarks>
+        /// <param name="packageId">The package ID to update.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        /// DotNetToolUpdate("DPI", new DotNetToolUpdateSettings
+        /// {
+        /// WorkingDirectory = "./src"
+        /// });
+        /// </code>
+        /// </example>
+        /// </member>
+        public static void DotNetToolUpdate(string packageId, global::Cake.Common.Tools.DotNet.Tool.DotNetToolUpdateSettings settings)
+            => global::Cake.Common.Tools.DotNet.DotNetAliases.DotNetToolUpdate(Context, packageId, settings);
+
         /// <member name="M:Cake.Common.Tools.DotNet.DotNetAliases.DotNetWorkloadSearch(Cake.Core.ICakeContext)">
         /// <summary>
         /// Lists available workloads.
